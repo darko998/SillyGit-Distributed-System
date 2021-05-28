@@ -4,6 +4,7 @@ import app.AppConfig;
 import app.Cancellable;
 import cli.command.*;
 import servent.SimpleServentListener;
+import servent.pinger.Pinger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class CLIParser implements Runnable, Cancellable {
 	
 	private final List<CLICommand> commandList;
 	
-	public CLIParser(SimpleServentListener listener) {
+	public CLIParser(SimpleServentListener listener, Pinger pinger) {
 		this.commandList = new ArrayList<>();
 		
 		commandList.add(new InfoCommand());
@@ -41,7 +42,8 @@ public class CLIParser implements Runnable, Cancellable {
 		commandList.add(new SuccessorInfo());
 		commandList.add(new DHTGetCommand());
 		commandList.add(new DHTPutCommand());
-		commandList.add(new StopCommand(this, listener));
+		commandList.add(new StopCommand(this, listener, pinger));
+		commandList.add(new AddFileCommand());
 	}
 	
 	@Override

@@ -71,7 +71,7 @@ public class MultipleServentStarter {
 				+ "If servents do not finish on their own, type \"stop\" to finish them");
 		
 		Process bsProcess = null;
-		ProcessBuilder bsBuilder = new ProcessBuilder("java", "-cp", "bin/", "app.BootstrapServer", String.valueOf(AppConfig.BOOTSTRAP_PORT));
+		ProcessBuilder bsBuilder = new ProcessBuilder("java", "-cp", "target/classes", "app.BootstrapServer", String.valueOf(AppConfig.BOOTSTRAP_PORT));
 		try {
 			bsProcess = bsBuilder.start();
 		} catch (IOException e1) {
@@ -89,7 +89,7 @@ public class MultipleServentStarter {
 		
 		for(int i = 0; i < serventCount; i++) {
 			try {
-				ProcessBuilder builder = new ProcessBuilder("java", "-cp", "bin/", "app.ServentMain",
+				ProcessBuilder builder = new ProcessBuilder("java", "-cp", "target/classes", "app.ServentMain",
 						testName+"/servent_list.properties", String.valueOf(i));
 				
 				//We use files to read and write.
@@ -133,7 +133,7 @@ public class MultipleServentStarter {
 	}
 	
 	public static void main(String[] args) {
-		startServentTest("chord");
+		startServentTest("src/main/resources/chord");
 		
 	}
 

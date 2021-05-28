@@ -3,15 +3,18 @@ package cli.command;
 import app.AppConfig;
 import cli.CLIParser;
 import servent.SimpleServentListener;
+import servent.pinger.Pinger;
 
 public class StopCommand implements CLICommand {
 
 	private CLIParser parser;
 	private SimpleServentListener listener;
+	private Pinger pinger;
 	
-	public StopCommand(CLIParser parser, SimpleServentListener listener) {
+	public StopCommand(CLIParser parser, SimpleServentListener listener, Pinger pinger) {
 		this.parser = parser;
 		this.listener = listener;
+		this.pinger = pinger;
 	}
 	
 	@Override
@@ -24,6 +27,7 @@ public class StopCommand implements CLICommand {
 		AppConfig.timestampedStandardPrint("Stopping...");
 		parser.stop();
 		listener.stop();
+		pinger.stop();
 	}
 
 }

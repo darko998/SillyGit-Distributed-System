@@ -79,6 +79,18 @@ public class SimpleServentListener implements Runnable, Cancellable {
 				case TELL_GET:
 					messageHandler = new TellGetHandler(clientMessage);
 					break;
+				case PING:
+					messageHandler = new PingHandler(clientMessage);
+					break;
+				case PONG:
+					messageHandler = new PongHandler(clientMessage);
+					break;
+				case IS_ALIVE_ASK:
+					messageHandler = new IsAliveAskHandler(clientMessage);
+					break;
+				case IS_ALIVE_TELL:
+					messageHandler = new IsAliveTellHandler(clientMessage);
+					break;
 				case POISON:
 					break;
 				}

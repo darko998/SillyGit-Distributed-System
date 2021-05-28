@@ -1,0 +1,7 @@
+00:00:42 - Starting servent [49|localhost|1605]
+00:00:42 - Pausing for 10000 ms
+00:00:43 - Sending message [49|1605|0||NEW_NODE|1404|12]
+00:00:52 - Pausing for 4000 ms
+00:00:56 - 25: 3
+00:00:56 - Pausing for 6000 ms
+00:01:02 - Stopping...

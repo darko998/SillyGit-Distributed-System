@@ -114,8 +114,29 @@ public class AppConfig {
 			timestampedErrorPrint("Problem reading " + portProperty + ". Exiting...");
 			System.exit(0);
 		}
-		
-		myServentInfo = new ServentInfo("localhost", serventPort);
+
+
+		String workingRootPathProperty = "servent" + serventId + ".working_root_path";
+		String workingRootPath = "-1";
+		try {
+			workingRootPath = properties.getProperty(workingRootPathProperty);
+		} catch (NumberFormatException e) {
+			timestampedErrorPrint("Problem reading " + workingRootPathProperty + ". Exiting...");
+			System.exit(0);
+		}
+
+
+		String repositoryPathProperty = "servent" + serventId + ".repository";
+		String repositoryPath = "-1";
+		try {
+			repositoryPath = properties.getProperty(repositoryPathProperty);
+		} catch (NumberFormatException e) {
+			timestampedErrorPrint("Problem reading " + repositoryPathProperty + ". Exiting...");
+			System.exit(0);
+		}
+
+
+		myServentInfo = new ServentInfo("localhost", serventPort, workingRootPath, repositoryPath);
 	}
 	
 }

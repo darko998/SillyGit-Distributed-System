@@ -1,8 +1,6 @@
 package app;
 
-import servent.message.AskGetMessage;
-import servent.message.PutMessage;
-import servent.message.WelcomeMessage;
+import servent.message.*;
 import servent.message.util.MessageUtil;
 
 import java.io.IOException;
@@ -10,6 +8,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class implements all the logic required for Chord to function.
@@ -50,6 +49,10 @@ public class ChordState {
 	private List<ServentInfo> allNodeInfo;
 	
 	private Map<Integer, Integer> valueMap;
+
+	private Map<Integer, Long> aliveSerents = new ConcurrentHashMap<>();
+	private List<Integer> suspiciousServents = new ArrayList<>();
+	private List<Integer> suspiciousServentsCheckedByAnotherServent = new ArrayList<>();
 	
 	public ChordState() {
 		this.chordLevel = 1;
@@ -341,4 +344,99 @@ public class ChordState {
 		return -2;
 	}
 
+
+	public void addAliveServent(int serventChordId) {
+		aliveSerents.put(serventChordId, new Date().getTime());
+	}
+
+	public void clearAliveServents() {
+		aliveSerents.clear();
+	}
+
+	public void areAllServentsAlive() {
+		ServentInfo myPred = AppConfig.chordState.getPredecessor();
+		ServentInfo mySucc = AppConfig.chordState.getSuccessorTable()[0];
+
+		//isAliveServent(myPred, false);
+		if(mySucc != null) {
+			AppConfig.timestampedStandardPrint("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			isAliveServent(mySucc, true);
+		}
+	}
+
+	public void isAliveServent(ServentInfo serventInfo, boolean isSuccessor) {
+
+		/*if(!isSuccessor) { // Ako je prethodnik samo mu saljemo poruku (pitamo ga da li je alive)
+			IsAliveAskMessage isAliveAskMessage = new IsAliveAskMessage(AppConfig.myServentInfo.getListenerPort(), serventInfo.getListenerPort());
+			MessageUtil.sendMessage(isAliveAskMessage);
+
+			return;
+		}*/
+
+		// Ukoliko je sledbenik vrsimo proveru koliko dugo se nije javio itd.
+		if(aliveSerents.containsKey(serventInfo.getChordId())) {
+			Long noSignalTime = new Date().getTime() - aliveSerents.get(serventInfo.getChordId());
+
+			if(noSignalTime > 2000 && noSignalTime < 10000) {
+				suspiciousServents.add(serventInfo.getChordId());
+
+				ServentInfo nextSucc = findNextSuccessor(serventInfo.getChordId());
+
+				if(nextSucc != null) {
+					IsAliveAskMessage isAliveAskMessage = new IsAliveAskMessage(AppConfig.myServentInfo.getListenerPort(), nextSucc.getListenerPort(), serventInfo.getChordId());
+					MessageUtil.sendMessage(isAliveAskMessage);
+
+					AppConfig.timestampedStandardPrint("Trazimo potvrdu da je servent chord id: " + serventInfo.getChordId() + " ziv!");
+
+				} else {
+					// Nemamo sledbenika kog mozemo da pitamo da nam potvrdi da serventInfo ne radi vise, pa ga cekiramo da je potvrdjen za brisanje
+					suspiciousServentsCheckedByAnotherServent.add(serventInfo.getChordId());
+
+					AppConfig.timestampedStandardPrint("Servent chord id: " + serventInfo.getChordId() + " je oznacen kao sumnjiv!");
+				}
+			} else if (noSignalTime <= 2000) {
+				// Servent se javio na vreme
+
+				removeFromSuspicious(serventInfo.getChordId());
+
+				AppConfig.timestampedStandardPrint("Servent chord id: " + serventInfo.getChordId() + " se javio na vreme!");
+			} else {
+				// remove servent from system
+				AppConfig.timestampedStandardPrint("Servent chord id: " + serventInfo.getChordId() + " treba da se izbaci iz sistema!");
+			}
+		}
+	}
+
+	public ServentInfo findNextSuccessor(int firstChordId) {
+		for (int i = 1; i < AppConfig.chordState.getSuccessorTable().length; i++) {
+			if(AppConfig.chordState.getSuccessorTable()[i].getChordId() != firstChordId) {
+				return AppConfig.chordState.getSuccessorTable()[i];
+			}
+		}
+
+		return null;
+	}
+
+	public Map<Integer, Long> getAliveSerents() {
+		return aliveSerents;
+	}
+
+	public void removeFromSuspicious(int serventChordId) {
+
+		for (int i = 0; i < suspiciousServents.size(); i++) {
+			if(suspiciousServents.get(i) == serventChordId) {
+				suspiciousServents.remove(suspiciousServents.get(i));
+			}
+		}
+
+		for (int i = 0; i < suspiciousServentsCheckedByAnotherServent.size(); i++) {
+			if(suspiciousServentsCheckedByAnotherServent.get(i) == serventChordId) {
+				suspiciousServentsCheckedByAnotherServent.remove(suspiciousServentsCheckedByAnotherServent.get(i));
+			}
+		}
+	}
+
+	public void addSuspiciousCheckedByOtherServent(int serventChordId) {
+		suspiciousServentsCheckedByAnotherServent.add(serventChordId);
+	}
 }

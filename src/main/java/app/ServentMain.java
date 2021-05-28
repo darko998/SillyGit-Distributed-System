@@ -2,6 +2,7 @@ package app;
 
 import cli.CLIParser;
 import servent.SimpleServentListener;
+import servent.pinger.Pinger;
 
 /**
  * Describes the procedure for starting a single Servent
@@ -50,14 +51,17 @@ public class ServentMain {
 		SimpleServentListener simpleListener = new SimpleServentListener();
 		Thread listenerThread = new Thread(simpleListener);
 		listenerThread.start();
-		
-		CLIParser cliParser = new CLIParser(simpleListener);
+
+		Pinger pinger = new Pinger();
+		Thread pingerThread = new Thread(pinger);
+		pingerThread.start();
+
+		CLIParser cliParser = new CLIParser(simpleListener, pinger);
 		Thread cliThread = new Thread(cliParser);
 		cliThread.start();
 		
 		ServentInitializer serventInitializer = new ServentInitializer();
 		Thread initializerThread = new Thread(serventInitializer);
 		initializerThread.start();
-		
 	}
 }

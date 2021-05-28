@@ -1,0 +1,48 @@
+00:00:32 - Starting servent [12|localhost|1404]
+00:00:32 - Pausing for 7000 ms
+00:00:33 - Sending message [12|1404|0||NEW_NODE|1101|25]
+00:00:33 - Got message [25|1101|78||WELCOME|1404|12]
+00:00:34 - Got message [25|1101|79||PING|1404|12]
+00:00:34 - Sending message [12|1404|1||UPDATE|1101|25]
+00:00:34 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+00:00:35 - Sending message [12|1404|2||PONG|1101|25]
+00:00:35 - Sending message [12|1404|3||PING|1101|25]
+00:00:35 - Got message [25|1101|85||PING|1404|12]
+00:00:35 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+00:00:36 - Got message [25|1101|89||PONG|1404|12]
+00:00:36 - Sending message [12|1404|5||PING|1101|25]
+00:00:36 - Sending message [12|1404|4||PONG|1101|25]
+00:00:36 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+00:00:36 - Servent chord id: 25 se javio na vreme!
+00:00:36 - Got message [25|1101|91||PING|1404|12]
+00:00:37 - Got message [59|1303|42||PING|1404|12]
+00:00:37 - Sending message [12|1404|6||PING|1101|25]
+00:00:37 - Got message [25|1101|94||PONG|1404|12]
+00:00:37 - Got message [12|1404|39|1101,1202,1303|UPDATE|1404|12]
+00:00:37 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+00:00:37 - Servent chord id: 25 se javio na vreme!
+00:00:37 - Sending message [12|1404|7||PONG|1101|25]
+00:00:37 - Got message [25|1101|96||PING|1404|12]
+00:00:38 - Sending message [12|1404|8||PONG|1303|59]
+00:00:38 - Sending message [12|1404|10||PING|1101|25]
+00:00:38 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+00:00:38 - Servent chord id: 25 se javio na vreme!
+00:00:38 - Got message [59|1303|45||PING|1404|12]
+00:00:38 - Got message [25|1101|98||PONG|1404|12]
+00:00:38 - Got message [25|1101|100||PING|1404|12]
+00:00:38 - Got message [25|1101|102||PONG|1404|12]
+00:00:38 - Sending message [12|1404|9||PING|1303|59]
+00:00:38 - Sending message [12|1404|11||PONG|1101|25]
+00:00:39 - Sending message [12|1404|13||PING|1101|25]
+00:00:39 - Sending message [12|1404|15||PONG|1101|25]
+00:00:39 - Got message [59|1303|49||PONG|1404|12]
+00:00:39 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+00:00:39 - Servent chord id: 25 se javio na vreme!
+00:00:39 - Stopping...
+00:00:39 - Got message [25|1101|103||PING|1404|12]
+00:00:40 - Sending message [12|1404|12||PING|1303|59]
+00:00:40 - Sending message [12|1404|14||PONG|1303|59]
+00:00:40 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+00:00:40 - Servent chord id: 25 se javio na vreme!
+00:00:40 - Sending message [12|1404|16||PING|1303|59]
+00:00:40 - Sending message [12|1404|17||PING|1101|25]
