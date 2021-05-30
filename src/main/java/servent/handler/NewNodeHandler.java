@@ -22,6 +22,9 @@ public class NewNodeHandler implements MessageHandler {
 		if (clientMessage.getMessageType() == MessageType.NEW_NODE) {
 			int newNodePort = clientMessage.getSenderPort();
 			ServentInfo newNodeInfo = new ServentInfo("localhost", newNodePort);
+
+			// Ukoliko je postojao cvor za ovim chord id-em i koji je bio obrisan, samo treba izbaciti taj chord id iz liste obrisanih
+			AppConfig.chordState.removeFromDeletedIfExists(newNodeInfo.getChordId());
 			
 			//check if the new node collides with another existing node.
 			if (AppConfig.chordState.isCollision(newNodeInfo.getChordId())) {

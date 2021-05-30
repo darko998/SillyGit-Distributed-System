@@ -91,6 +91,9 @@ public class SimpleServentListener implements Runnable, Cancellable {
 				case IS_ALIVE_TELL:
 					messageHandler = new IsAliveTellHandler(clientMessage);
 					break;
+				case DELETE_NODE:
+					messageHandler = new DeleteNodeHandler(clientMessage);
+					break;
 				case POISON:
 					break;
 				}

@@ -1,490 +1,439 @@
-00:00:12 - Starting servent [42|localhost|1202]
-00:00:12 - Pausing for 40000 ms
-00:00:13 - Sending message [42|1202|0||NEW_NODE|1101|25]
-00:00:14 - Got message [25|1101|0||WELCOME|1202|42]
-00:00:14 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:14 - Sending message [42|1202|1||UPDATE|1101|25]
-00:00:15 - Got message [25|1101|1||PING|1202|42]
-00:00:15 - Sending message [42|1202|2||PING|1101|25]
-00:00:15 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:15 - Got message [25|1101|3||PONG|1202|42]
-00:00:16 - Got message [42|1202|2|1101|UPDATE|1202|42]
-00:00:16 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:16 - Servent chord id: 25 se javio na vreme!
-00:00:16 - Sending message [42|1202|3||PONG|1101|25]
-00:00:16 - Got message [25|1101|5||PING|1202|42]
-00:00:16 - Got message [25|1101|4||PING|1202|42]
-00:00:16 - Sending message [42|1202|4||PING|1101|25]
-00:00:17 - Sending message [42|1202|5||PING|1101|25]
-00:00:17 - Got message [25|1101|7||PING|1202|42]
-00:00:17 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:17 - Servent chord id: 25 se javio na vreme!
-00:00:17 - Sending message [42|1202|7||PONG|1101|25]
-00:00:17 - Sending message [42|1202|6||PING|1101|25]
-00:00:18 - Got message [25|1101|8||PONG|1202|42]
-00:00:18 - Got message [25|1101|6||PING|1202|42]
-00:00:18 - Sending message [42|1202|8||PONG|1101|25]
-00:00:18 - Got message [25|1101|9||PONG|1202|42]
-00:00:18 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:18 - Servent chord id: 25 se javio na vreme!
-00:00:18 - Sending message [42|1202|10||PING|1101|25]
-00:00:18 - Sending message [42|1202|11||PING|1101|25]
-00:00:18 - Sending message [42|1202|9||PONG|1101|25]
-00:00:18 - Got message [25|1101|10||PING|1202|42]
-00:00:18 - Got message [25|1101|11||PING|1202|42]
-00:00:19 - Sending message [42|1202|14||PING|1101|25]
-00:00:19 - Got message [25|1101|15||PONG|1202|42]
-00:00:19 - Got message [25|1101|12||PONG|1202|42]
-00:00:19 - Sending message [42|1202|15||PONG|1101|25]
-00:00:19 - Sending message [42|1202|12||PONG|1101|25]
-00:00:19 - Got message [25|1101|13||PING|1202|42]
-00:00:19 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:19 - Servent chord id: 25 se javio na vreme!
-00:00:19 - Sending message [42|1202|16||PONG|1101|25]
-00:00:19 - Got message [25|1101|16||PONG|1202|42]
-00:00:19 - Sending message [42|1202|13||PING|1101|25]
-00:00:19 - Sending message [42|1202|17||PONG|1101|25]
-00:00:20 - Got message [25|1101|14||PING|1202|42]
-00:00:20 - Got message [25|1101|17||PONG|1202|42]
-00:00:20 - Sending message [42|1202|19||PING|1101|25]
-00:00:20 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:20 - Servent chord id: 25 se javio na vreme!
-00:00:20 - Got message [25|1101|18||PING|1202|42]
-00:00:20 - Sending message [42|1202|18||PING|1101|25]
-00:00:20 - Got message [25|1101|19||PING|1202|42]
-00:00:21 - Got message [25|1101|20||PONG|1202|42]
-00:00:21 - Sending message [42|1202|21||PING|1101|25]
-00:00:21 - Got message [25|1101|23||PING|1202|42]
-00:00:21 - Sending message [42|1202|20||PONG|1101|25]
-00:00:21 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:21 - Servent chord id: 25 se javio na vreme!
-00:00:21 - Got message [25|1101|24||PONG|1202|42]
-00:00:21 - Sending message [42|1202|23||PONG|1101|25]
-00:00:21 - Got message [25|1101|21||PONG|1202|42]
-00:00:21 - Sending message [42|1202|22||PING|1101|25]
-00:00:21 - Got message [25|1101|22||PING|1202|42]
-00:00:21 - Sending message [42|1202|24||PONG|1101|25]
-00:00:22 - Got message [25|1101|25||PONG|1202|42]
-00:00:22 - Sending message [42|1202|25||PONG|1101|25]
-00:00:22 - Sending message [42|1202|26||PING|1101|25]
-00:00:22 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:22 - Servent chord id: 25 se javio na vreme!
-00:00:22 - Sending message [42|1202|27||PING|1101|25]
-00:00:22 - Sending message [42|1202|28||PONG|1101|25]
-00:00:23 - Got message [25|1101|27||PING|1202|42]
-00:00:23 - Got message [25|1101|26||PING|1202|42]
-00:00:23 - Got message [25|1101|28||PONG|1202|42]
-00:00:23 - Sending message [42|1202|29||PING|1101|25]
-00:00:23 - Got message [25|1101|29||PONG|1202|42]
-00:00:23 - Got message [25|1101|30||PING|1202|42]
-00:00:23 - Got message [25|1101|31||PING|1202|42]
-00:00:23 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:23 - Servent chord id: 25 se javio na vreme!
-00:00:23 - Sending message [42|1202|30||PING|1101|25]
-00:00:23 - Got message [25|1101|32||PONG|1202|42]
-00:00:23 - Sending message [42|1202|31||PONG|1101|25]
-00:00:24 - Got message [25|1101|33||PONG|1202|42]
-00:00:24 - Sending message [42|1202|35||PING|1101|25]
-00:00:24 - Got message [25|1101|36||PING|1202|42]
-00:00:24 - Sending message [42|1202|32||PONG|1101|25]
-00:00:24 - Sending message [42|1202|34||PONG|1101|25]
-00:00:24 - Sending message [42|1202|33||PONG|1101|25]
-00:00:24 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:24 - Servent chord id: 25 se javio na vreme!
-00:00:24 - Got message [25|1101|38||PONG|1202|42]
-00:00:24 - Got message [25|1101|35||PING|1202|42]
-00:00:24 - Got message [25|1101|34||PONG|1202|42]
-00:00:24 - Sending message [42|1202|36||PING|1101|25]
-00:00:24 - Sending message [42|1202|37||PONG|1101|25]
-00:00:25 - Got message [25|1101|40||PING|1202|42]
-00:00:25 - Sending message [42|1202|38||PING|1101|25]
-00:00:25 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:25 - Servent chord id: 25 se javio na vreme!
-00:00:25 - Sending message [42|1202|40||PONG|1101|25]
-00:00:25 - Sending message [42|1202|39||PING|1101|25]
-00:00:25 - Got message [25|1101|41||PONG|1202|42]
-00:00:25 - Sending message [42|1202|41||PONG|1101|25]
-00:00:26 - Got message [25|1101|42||PONG|1202|42]
-00:00:26 - Got message [25|1101|45||PONG|1202|42]
-00:00:26 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:26 - Servent chord id: 25 se javio na vreme!
-00:00:26 - Sending message [42|1202|43||PING|1101|25]
-00:00:26 - Sending message [42|1202|42||PING|1101|25]
-00:00:27 - Got message [25|1101|44||PING|1202|42]
-00:00:27 - Sending message [42|1202|45||PING|1101|25]
-00:00:27 - Got message [59|1303|46|1101|UPDATE|1202|42]
-00:00:27 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:27 - Sending message [42|1202|44||PING|1101|25]
-00:00:27 - Got message [25|1101|49||PONG|1202|42]
-00:00:27 - Sending message [42|1202|46||PONG|1101|25]
-00:00:27 - Got message [25|1101|52||PONG|1202|42]
-00:00:28 - Sending message [42|1202|49||PING|1303|59]
-00:00:28 - Got message [25|1101|51||PING|1202|42]
-00:00:28 - Sending message [59|1303|47|1101,1202|UPDATE|1303|59]
-00:00:28 - Got message [25|1101|55||PING|1202|42]
-00:00:28 - Sending message [42|1202|48||PING|1101|25]
-00:00:28 - Got message [25|1101|53||PONG|1202|42]
-00:00:28 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:28 - Got message [59|1303|9||PONG|1202|42]
-00:00:28 - Sending message [42|1202|50||PONG|1101|25]
-00:00:29 - Sending message [42|1202|51||PONG|1101|25]
-00:00:29 - Got message [25|1101|56||PONG|1202|42]
-00:00:29 - Got message [25|1101|58||PONG|1202|42]
-00:00:29 - Sending message [42|1202|53||PING|1303|59]
-00:00:29 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:29 - Servent chord id: 59 se javio na vreme!
-00:00:29 - Sending message [42|1202|52||PING|1101|25]
-00:00:29 - Got message [59|1303|10||PING|1202|42]
-00:00:29 - Got message [25|1101|60||PING|1202|42]
-00:00:30 - Got message [25|1101|64||PONG|1202|42]
-00:00:30 - Got message [59|1303|13||PONG|1202|42]
-00:00:30 - Sending message [42|1202|55||PING|1303|59]
-00:00:30 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:30 - Servent chord id: 59 se javio na vreme!
-00:00:30 - Got message [59|1303|15||PING|1202|42]
-00:00:30 - Sending message [42|1202|57||PONG|1101|25]
-00:00:30 - Got message [25|1101|63||PING|1202|42]
-00:00:30 - Sending message [42|1202|56||PONG|1303|59]
-00:00:31 - Sending message [42|1202|54||PING|1101|25]
-00:00:31 - Sending message [42|1202|59||PING|1303|59]
-00:00:31 - Got message [59|1303|17||PONG|1202|42]
-00:00:31 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:31 - Servent chord id: 59 se javio na vreme!
-00:00:31 - Sending message [42|1202|61||PONG|1101|25]
-00:00:31 - Got message [25|1101|68||PING|1202|42]
-00:00:31 - Sending message [42|1202|58||PING|1101|25]
-00:00:31 - Sending message [42|1202|60||PONG|1303|59]
-00:00:31 - Got message [59|1303|18||PING|1202|42]
-00:00:32 - Sending message [42|1202|63||PING|1303|59]
-00:00:32 - Got message [25|1101|69||PONG|1202|42]
-00:00:32 - Got message [25|1101|72||PING|1202|42]
-00:00:32 - Sending message [42|1202|64||PONG|1101|25]
-00:00:32 - Sending message [42|1202|62||PING|1101|25]
-00:00:32 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:32 - Servent chord id: 59 se javio na vreme!
-00:00:32 - Got message [59|1303|21||PONG|1202|42]
-00:00:32 - Got message [59|1303|23||PING|1202|42]
-00:00:32 - Sending message [42|1202|65||PONG|1303|59]
-00:00:32 - Got message [59|1303|25||PONG|1202|42]
-00:00:33 - Sending message [42|1202|66||PONG|1101|25]
-00:00:33 - Got message [25|1101|73||PONG|1202|42]
-00:00:33 - Got message [25|1101|76||PING|1202|42]
-00:00:33 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:33 - Servent chord id: 59 se javio na vreme!
-00:00:33 - Sending message [42|1202|69||PONG|1303|59]
-00:00:33 - Sending message [42|1202|67||PING|1101|25]
-00:00:33 - Sending message [42|1202|68||PING|1303|59]
-00:00:33 - Got message [25|1101|74||PONG|1202|42]
-00:00:34 - Got message [59|1303|26||PING|1202|42]
-00:00:34 - Sending message [42|1202|72||PING|1303|59]
-00:00:34 - Got message [25|1101|80||PING|1202|42]
-00:00:34 - Got message [59|1303|30||PING|1202|42]
-00:00:34 - Sending message [42|1202|70||PONG|1101|25]
-00:00:34 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:34 - Servent chord id: 59 se javio na vreme!
-00:00:34 - Got message [25|1101|81||PONG|1202|42]
-00:00:34 - Sending message [42|1202|73||PONG|1303|59]
-00:00:35 - Sending message [42|1202|71||PING|1101|25]
-00:00:35 - Got message [59|1303|34||PING|1202|42]
-00:00:35 - Got message [25|1101|86||PING|1202|42]
-00:00:35 - Got message [59|1303|32||PONG|1202|42]
-00:00:35 - Sending message [42|1202|76||PING|1101|25]
-00:00:35 - Sending message [42|1202|75||PONG|1303|59]
-00:00:35 - Got message [59|1303|33||PONG|1202|42]
-00:00:35 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:35 - Servent chord id: 59 se javio na vreme!
-00:00:35 - Got message [12|1404|83|1101|UPDATE|1202|42]
-00:00:35 - Got message [25|1101|87||PONG|1202|42]
-00:00:35 - Sending message [42|1202|78||PONG|1303|59]
-00:00:35 - Sending message [42|1202|79||PONG|1101|25]
-00:00:35 - Sending message [42|1202|74||PONG|1101|25]
-00:00:35 - Sending message [42|1202|77||PING|1303|59]
-00:00:36 - Sending message [12|1404|82|1101,1202|UPDATE|1303|59]
-00:00:36 - Got message [59|1303|36||PING|1202|42]
-00:00:36 - Got message [25|1101|92||PING|1202|42]
-00:00:36 - Got message [25|1101|90||PONG|1202|42]
-00:00:36 - Sending message [42|1202|80||PING|1101|25]
-00:00:36 - Sending message [42|1202|81||PING|1303|59]
-00:00:36 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:36 - Servent chord id: 59 se javio na vreme!
-00:00:36 - Got message [59|1303|40||PONG|1202|42]
-00:00:37 - Got message [25|1101|95||PONG|1202|42]
-00:00:37 - Got message [59|1303|41||PING|1202|42]
-00:00:37 - Sending message [42|1202|86||PING|1303|59]
-00:00:37 - Sending message [42|1202|84||PONG|1101|25]
-00:00:37 - Sending message [42|1202|83||PONG|1303|59]
-00:00:37 - Got message [59|1303|38||PONG|1202|42]
-00:00:37 - Sending message [42|1202|85||PING|1101|25]
-00:00:37 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:37 - Servent chord id: 59 se javio na vreme!
-00:00:37 - Sending message [42|1202|87||PONG|1303|59]
-00:00:38 - Got message [25|1101|97||PING|1202|42]
-00:00:38 - Got message [25|1101|101||PING|1202|42]
-00:00:38 - Sending message [42|1202|89||PING|1303|59]
-00:00:38 - Got message [59|1303|43||PONG|1202|42]
-00:00:38 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:38 - Servent chord id: 59 se javio na vreme!
-00:00:38 - Sending message [42|1202|88||PING|1101|25]
-00:00:38 - Got message [25|1101|99||PONG|1202|42]
-00:00:38 - Got message [59|1303|44||PING|1202|42]
-00:00:39 - Sending message [42|1202|91||PONG|1101|25]
-00:00:39 - Sending message [42|1202|93||PING|1303|59]
-00:00:39 - Got message [59|1303|47||PING|1202|42]
-00:00:39 - Sending message [42|1202|90||PONG|1101|25]
-00:00:39 - Got message [25|1101|105||PONG|1202|42]
-00:00:39 - Sending message [42|1202|92||PING|1101|25]
-00:00:39 - Got message [59|1303|46||PONG|1202|42]
-00:00:39 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:39 - Servent chord id: 59 se javio na vreme!
-00:00:39 - Got message [25|1101|104||PING|1202|42]
-00:00:39 - Sending message [42|1202|94||PONG|1303|59]
-00:00:40 - Got message [59|1303|50||PONG|1202|42]
-00:00:40 - Sending message [42|1202|95||PONG|1303|59]
-00:00:40 - Sending message [42|1202|97||PING|1303|59]
-00:00:40 - Got message [59|1303|51||PING|1202|42]
-00:00:40 - Got message [25|1101|109||PING|1202|42]
-00:00:40 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:40 - Servent chord id: 59 se javio na vreme!
-00:00:40 - Sending message [42|1202|96||PING|1101|25]
-00:00:40 - Got message [25|1101|107||PONG|1202|42]
-00:00:41 - Sending message [42|1202|98||PONG|1101|25]
-00:00:41 - Sending message [42|1202|99||PONG|1303|59]
-00:00:41 - Got message [59|1303|54||PONG|1202|42]
-00:00:41 - Got message [25|1101|112||PONG|1202|42]
-00:00:41 - Sending message [42|1202|100||PONG|1101|25]
-00:00:41 - Got message [59|1303|55||PING|1202|42]
-00:00:41 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:41 - Servent chord id: 59 se javio na vreme!
-00:00:41 - Sending message [42|1202|101||PING|1101|25]
-00:00:41 - Sending message [42|1202|102||PING|1303|59]
-00:00:42 - Got message [25|1101|111||PING|1202|42]
-00:00:42 - Sending message [42|1202|104||PING|1101|25]
-00:00:42 - Sending message [42|1202|103||PONG|1303|59]
-00:00:42 - Got message [59|1303|58||PING|1202|42]
-00:00:42 - Sending message [42|1202|105||PING|1303|59]
-00:00:42 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:42 - Servent chord id: 59 se javio na vreme!
-00:00:42 - Got message [25|1101|115||PING|1202|42]
-00:00:42 - Got message [25|1101|117||PONG|1202|42]
-00:00:42 - Got message [25|1101|116||PONG|1202|42]
-00:00:42 - Got message [59|1303|60||PONG|1202|42]
-00:00:42 - Sending message [42|1202|107||PONG|1303|59]
-00:00:43 - Sending message [42|1202|106||PONG|1101|25]
-00:00:43 - Sending message [42|1202|108||PING|1101|25]
-00:00:43 - Got message [59|1303|63||PING|1202|42]
-00:00:43 - Sending message [42|1202|110||PONG|1101|25]
-00:00:43 - Got message [25|1101|119||PING|1202|42]
-00:00:43 - Sending message [42|1202|109||PING|1303|59]
-00:00:43 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:43 - Servent chord id: 59 se javio na vreme!
-00:00:43 - Got message [59|1303|61||PONG|1202|42]
-00:00:43 - Got message [25|1101|120||PONG|1202|42]
-00:00:43 - Got message [59|1303|62||IS_ALIVE_ASK|1202|42]
-00:00:44 - Sending message [42|1202|114||PING|1303|59]
-00:00:44 - Sending message [42|1202|111||PONG|1303|59]
-00:00:44 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:44 - Servent chord id: 59 se javio na vreme!
-00:00:44 - Got message [59|1303|65||PONG|1202|42]
-00:00:44 - Sending message [42|1202|115||IS_ALIVE_TELL|1303|59]
-00:00:44 - Got message [59|1303|69||PONG|1202|42]
-00:00:44 - Sending message [42|1202|112||PONG|1101|25]
-00:00:44 - Sending message [42|1202|113||PING|1101|25]
-00:00:45 - Got message [59|1303|67||PING|1202|42]
-00:00:45 - Got message [59|1303|66||IS_ALIVE_ASK|1202|42]
-00:00:45 - Sending message [42|1202|117||PING|1303|59]
-00:00:45 - Got message [25|1101|122||PING|1202|42]
-00:00:45 - Got message [59|1303|70||IS_ALIVE_ASK|1202|42]
-00:00:45 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:45 - Servent chord id: 59 se javio na vreme!
-00:00:45 - Sending message [42|1202|116||PING|1101|25]
-00:00:45 - Sending message [42|1202|119||IS_ALIVE_TELL|1303|59]
-00:00:45 - Got message [59|1303|71||PING|1202|42]
-00:00:45 - Got message [25|1101|124||PING|1202|42]
-00:00:45 - Got message [25|1101|125||PONG|1202|42]
-00:00:46 - Sending message [42|1202|120||PONG|1101|25]
-00:00:46 - Got message [59|1303|74||IS_ALIVE_ASK|1202|42]
-00:00:46 - Sending message [42|1202|118||PONG|1303|59]
-00:00:46 - Got message [59|1303|73||PONG|1202|42]
-00:00:46 - Sending message [42|1202|123||PING|1303|59]
-00:00:46 - Sending message [42|1202|122||PING|1101|25]
-00:00:46 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:46 - Servent chord id: 59 se javio na vreme!
-00:00:46 - Sending message [42|1202|121||IS_ALIVE_TELL|1303|59]
-00:00:46 - Got message [25|1101|128||PING|1202|42]
-00:00:46 - Got message [25|1101|126||PONG|1202|42]
-00:00:46 - Got message [59|1303|75||PING|1202|42]
-00:00:46 - Sending message [42|1202|126||IS_ALIVE_TELL|1303|59]
-00:00:47 - Got message [59|1303|79||PING|1202|42]
-00:00:47 - Sending message [42|1202|127||PING|1101|25]
-00:00:47 - Sending message [42|1202|125||PONG|1101|25]
-00:00:47 - Got message [59|1303|77||PONG|1202|42]
-00:00:47 - Sending message [42|1202|124||PONG|1303|59]
-00:00:47 - Got message [25|1101|131||PING|1202|42]
-00:00:47 - Sending message [42|1202|128||PING|1303|59]
-00:00:47 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:47 - Servent chord id: 59 se javio na vreme!
-00:00:47 - Got message [25|1101|132||PONG|1202|42]
-00:00:47 - Sending message [42|1202|130||PONG|1303|59]
-00:00:47 - Got message [25|1101|129||PONG|1202|42]
-00:00:47 - Sending message [42|1202|129||PONG|1101|25]
-00:00:47 - Got message [59|1303|78||IS_ALIVE_ASK|1202|42]
-00:00:48 - Got message [59|1303|82||IS_ALIVE_ASK|1202|42]
-00:00:48 - Sending message [42|1202|131||PONG|1303|59]
-00:00:48 - Sending message [42|1202|132||PONG|1101|25]
-00:00:48 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:48 - Servent chord id: 59 se javio na vreme!
-00:00:48 - Sending message [42|1202|135||IS_ALIVE_TELL|1303|59]
-00:00:48 - Sending message [42|1202|133||PING|1101|25]
-00:00:48 - Got message [59|1303|81||PONG|1202|42]
-00:00:48 - Sending message [42|1202|136||IS_ALIVE_TELL|1303|59]
-00:00:48 - Got message [59|1303|83||PING|1202|42]
-00:00:49 - Sending message [42|1202|134||PING|1303|59]
-00:00:49 - Sending message [42|1202|137||PING|1101|25]
-00:00:49 - Got message [25|1101|134||PING|1202|42]
-00:00:49 - Got message [25|1101|137||PONG|1202|42]
-00:00:49 - Got message [59|1303|85||IS_ALIVE_ASK|1202|42]
-00:00:49 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:49 - Servent chord id: 59 se javio na vreme!
-00:00:49 - Sending message [42|1202|138||PING|1303|59]
-00:00:49 - Got message [25|1101|138||PONG|1202|42]
-00:00:49 - Got message [59|1303|88||PONG|1202|42]
-00:00:49 - Got message [59|1303|86||PING|1202|42]
-00:00:49 - Got message [25|1101|136||PING|1202|42]
-00:00:49 - Sending message [42|1202|140||PONG|1101|25]
-00:00:50 - Got message [59|1303|92||PONG|1202|42]
-00:00:50 - Sending message [42|1202|139||PONG|1303|59]
-00:00:50 - Sending message [42|1202|141||IS_ALIVE_TELL|1303|59]
-00:00:50 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:50 - Servent chord id: 59 se javio na vreme!
-00:00:50 - Sending message [42|1202|144||PONG|1303|59]
-00:00:50 - Sending message [42|1202|142||PING|1101|25]
-00:00:50 - Got message [59|1303|90||PING|1202|42]
-00:00:50 - Got message [59|1303|89||IS_ALIVE_ASK|1202|42]
-00:00:50 - Sending message [42|1202|143||PING|1303|59]
-00:00:50 - Got message [25|1101|140||PING|1202|42]
-00:00:51 - Sending message [42|1202|145||PONG|1101|25]
-00:00:51 - Sending message [42|1202|149||IS_ALIVE_TELL|1303|59]
-00:00:51 - Got message [59|1303|95||PONG|1202|42]
-00:00:51 - Sending message [42|1202|148||PONG|1303|59]
-00:00:51 - Got message [59|1303|93||PING|1202|42]
-00:00:51 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:51 - Servent chord id: 59 se javio na vreme!
-00:00:51 - Got message [25|1101|143||PONG|1202|42]
-00:00:51 - Got message [25|1101|142||PING|1202|42]
-00:00:51 - Sending message [42|1202|150||PONG|1101|25]
-00:00:51 - Sending message [42|1202|146||PING|1101|25]
-00:00:52 - Sending message [42|1202|147||PING|1303|59]
-00:00:52 - Got message [59|1303|96||PING|1202|42]
-00:00:52 - Sending message [42|1202|151||PONG|1303|59]
-00:00:52 - Pausing for 5000 ms
-00:00:52 - Got message [25|1101|145||PING|1202|42]
-00:00:52 - Got message [59|1303|98||PONG|1202|42]
-00:00:52 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:52 - Servent chord id: 59 se javio na vreme!
-00:00:52 - Sending message [42|1202|152||PING|1101|25]
-00:00:52 - Sending message [42|1202|154||PONG|1101|25]
-00:00:52 - Sending message [42|1202|153||PING|1303|59]
-00:00:53 - Got message [25|1101|146||PONG|1202|42]
-00:00:53 - Sending message [42|1202|158||PING|1303|59]
-00:00:53 - Sending message [42|1202|155||PONG|1303|59]
-00:00:53 - Sending message [42|1202|156||PONG|1101|25]
-00:00:53 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:53 - Servent chord id: 59 se javio na vreme!
-00:00:53 - Got message [25|1101|147|2:5|PUT|1202|42]
-00:00:53 - Got message [59|1303|99||PING|1202|42]
-00:00:53 - Got message [25|1101|150||PONG|1202|42]
-00:00:53 - Got message [59|1303|101||PONG|1202|42]
-00:00:53 - Sending message [42|1202|157||PING|1101|25]
-00:00:54 - Got message [25|1101|149||PING|1202|42]
-00:00:54 - Sending message [42|1202|159||PING|1101|25]
-00:00:54 - Got message [59|1303|102||PONG|1202|42]
-00:00:54 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:54 - Servent chord id: 59 se javio na vreme!
-00:00:54 - Sending message [42|1202|162||PONG|1303|59]
-00:00:54 - Got message [25|1101|152||PING|1202|42]
-00:00:54 - Sending message [42|1202|160||PING|1303|59]
-00:00:55 - Got message [59|1303|103||PING|1202|42]
-00:00:55 - Got message [25|1101|153||PONG|1202|42]
-00:00:55 - Sending message [42|1202|161|2:5|PUT|1303|59]
-00:00:55 - Got message [25|1101|154||PONG|1202|42]
-00:00:55 - Sending message [42|1202|163||PONG|1101|25]
-00:00:55 - Sending message [42|1202|164||PING|1101|25]
-00:00:55 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:55 - Servent chord id: 59 se javio na vreme!
-00:00:55 - Got message [59|1303|107||PONG|1202|42]
-00:00:55 - Got message [59|1303|105||PING|1202|42]
-00:00:55 - Got message [25|1101|156||PING|1202|42]
-00:00:55 - Sending message [42|1202|166||PONG|1101|25]
-00:00:55 - Sending message [42|1202|167||PONG|1303|59]
-00:00:56 - Sending message [42|1202|165||PING|1303|59]
-00:00:56 - Got message [25|1101|159||PING|1202|42]
-00:00:56 - Got message [59|1303|109||PING|1202|42]
-00:00:56 - Sending message [42|1202|171||PONG|1101|25]
-00:00:56 - Sending message [42|1202|170||PONG|1303|59]
-00:00:56 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:56 - Servent chord id: 59 se javio na vreme!
-00:00:56 - Got message [25|1101|157||PONG|1202|42]
-00:00:56 - Got message [59|1303|111||PONG|1202|42]
-00:00:56 - Sending message [42|1202|168||PING|1101|25]
-00:00:56 - Sending message [42|1202|169||PING|1303|59]
-00:00:57 - Sending message [42|1202|172||PONG|1101|25]
-00:00:57 - Sending message [42|1202|173||PONG|1303|59]
-00:00:57 - Got message [59|1303|114||PONG|1202|42]
-00:00:57 - Please wait...
-00:00:57 - Pausing for 5000 ms
-00:00:57 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:57 - Servent chord id: 59 se javio na vreme!
-00:00:57 - Sending message [42|1202|175||PING|1303|59]
-00:00:57 - Sending message [42|1202|174||PING|1101|25]
-00:00:57 - Got message [59|1303|112||PING|1202|42]
-00:00:58 - Got message [25|1101|161||PING|1202|42]
-00:00:58 - Got message [25|1101|162||PONG|1202|42]
-00:00:58 - Got message [59|1303|115||PING|1202|42]
-00:00:58 - Sending message [42|1202|178||PING|1303|59]
-00:00:58 - Got message [25|1101|164||PING|1202|42]
-00:00:58 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:58 - Servent chord id: 59 se javio na vreme!
-00:00:58 - Got message [25|1101|165||PONG|1202|42]
-00:00:58 - Sending message [42|1202|176|2|ASK_GET|1303|59]
-00:00:58 - Sending message [42|1202|180||PONG|1101|25]
-00:00:58 - Sending message [42|1202|177||PING|1101|25]
-00:00:58 - Sending message [42|1202|179||PONG|1303|59]
-00:00:58 - Got message [59|1303|117||PONG|1202|42]
-00:00:58 - Sending message [42|1202|181||PONG|1303|59]
-00:00:58 - Sending message [42|1202|182||PONG|1101|25]
-00:00:59 - Got message [59|1303|118||PONG|1202|42]
-00:00:59 - Got message [59|1303|119||PING|1202|42]
-00:00:59 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:00:59 - Servent chord id: 59 se javio na vreme!
-00:00:59 - Sending message [42|1202|184||PING|1303|59]
-00:01:00 - Sending message [42|1202|183||PING|1101|25]
-00:01:00 - Got message [25|1101|167||PING|1202|42]
-00:01:00 - Got message [25|1101|168||PONG|1202|42]
-00:01:00 - Sending message [42|1202|187||PING|1303|59]
-00:01:00 - Got message [25|1101|170||PING|1202|42]
-00:01:00 - Sending message [42|1202|185||PONG|1303|59]
-00:01:00 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:01:00 - Servent chord id: 59 se javio na vreme!
-00:01:00 - Sending message [42|1202|186||PING|1101|25]
-00:01:01 - Got message [59|1303|122||PING|1202|42]
-00:01:01 - Got message [59|1303|124||PONG|1202|42]
-00:01:01 - Sending message [42|1202|188||PONG|1101|25]
-00:01:01 - Got message [59|1303|125||PONG|1202|42]
-00:01:01 - Sending message [42|1202|189||PONG|1101|25]
-00:01:01 - Got message [25|1101|171||PONG|1202|42]
-00:01:01 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:01:01 - Servent chord id: 59 se javio na vreme!
-00:01:01 - Sending message [42|1202|191||PING|1303|59]
-00:01:01 - Got message [59|1303|126||PING|1202|42]
-00:01:01 - Sending message [42|1202|192||PONG|1303|59]
-00:01:01 - Got message [25|1101|173||PING|1202|42]
-00:01:01 - Sending message [42|1202|190||PING|1101|25]
-00:01:01 - Got message [25|1101|174||PONG|1202|42]
-00:01:02 - Sending message [42|1202|193||PING|1101|25]
-00:01:02 - Got message [59|1303|130||PONG|1202|42]
-00:01:02 - Stopping...
-00:01:02 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-00:01:02 - Servent chord id: 59 se javio na vreme!
-00:01:02 - Sending message [42|1202|195||PONG|1303|59]
-00:01:02 - Got message [25|1101|177||PONG|1202|42]
-00:01:02 - Sending message [42|1202|194||PING|1303|59]
+13:11:57 - Starting servent [42|localhost|1202]
+13:11:57 - Pausing for 40000 ms
+13:11:57 - My chord id: 42
+13:11:58 - Sending message [42|1202|0||NEW_NODE|1101|25]
+13:12:00 - Got message [25|1101|0||WELCOME|1202|42]
+13:12:00 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:01 - Got message [25|1101|1||PING|1202|42]
+13:12:01 - Sending message [42|1202|2||PING|1101|25]
+13:12:01 - Got message [25|1101|2||PING|1202|42]
+13:12:01 - Sending message [42|1202|1||UPDATE|1101|25]
+13:12:01 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:02 - Sending message [42|1202|3||PONG|1101|25]
+13:12:02 - Sending message [42|1202|4||PONG|1101|25]
+13:12:02 - Got message [25|1101|3||PONG|1202|42]
+13:12:02 - Got message [25|1101|6||PING|1202|42]
+13:12:02 - Sending message [42|1202|5||PING|1101|25]
+13:12:02 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:02 - Servent chord id: 25 se javio na vreme!
+13:12:02 - Got message [42|1202|4|1101|UPDATE|1202|42]
+13:12:03 - Sending message [42|1202|6||PONG|1101|25]
+13:12:03 - Got message [25|1101|5||PING|1202|42]
+13:12:03 - Got message [25|1101|7||PONG|1202|42]
+13:12:03 - Got message [25|1101|9||PING|1202|42]
+13:12:03 - Sending message [42|1202|8||PONG|1101|25]
+13:12:03 - Sending message [42|1202|7||PING|1101|25]
+13:12:03 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:03 - Servent chord id: 25 se javio na vreme!
+13:12:03 - Got message [25|1101|8||PING|1202|42]
+13:12:04 - Sending message [42|1202|12||PONG|1101|25]
+13:12:04 - Got message [25|1101|10||PONG|1202|42]
+13:12:04 - Sending message [42|1202|9||PONG|1101|25]
+13:12:04 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:04 - Servent chord id: 25 se javio na vreme!
+13:12:04 - Sending message [42|1202|11||PING|1101|25]
+13:12:05 - Got message [25|1101|12||PING|1202|42]
+13:12:05 - Got message [25|1101|11||PING|1202|42]
+13:12:05 - Sending message [42|1202|10||PING|1101|25]
+13:12:05 - Sending message [42|1202|14||PING|1101|25]
+13:12:05 - Sending message [42|1202|13||PING|1101|25]
+13:12:05 - Got message [25|1101|14||PING|1202|42]
+13:12:05 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:05 - Servent chord id: 25 se javio na vreme!
+13:12:05 - Sending message [42|1202|15||PONG|1101|25]
+13:12:05 - Got message [25|1101|15||PONG|1202|42]
+13:12:05 - Got message [25|1101|18||PONG|1202|42]
+13:12:06 - Got message [25|1101|13||PING|1202|42]
+13:12:06 - Sending message [42|1202|18||PING|1101|25]
+13:12:06 - Sending message [42|1202|19||PING|1101|25]
+13:12:06 - Got message [25|1101|19||PING|1202|42]
+13:12:06 - Got message [25|1101|17||PONG|1202|42]
+13:12:06 - Sending message [42|1202|16||PONG|1101|25]
+13:12:06 - Got message [25|1101|16||PONG|1202|42]
+13:12:06 - Sending message [42|1202|17||PONG|1101|25]
+13:12:06 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:06 - Servent chord id: 25 se javio na vreme!
+13:12:06 - Got message [25|1101|22||PONG|1202|42]
+13:12:07 - Got message [25|1101|21||PONG|1202|42]
+13:12:07 - Got message [25|1101|20||PING|1202|42]
+13:12:07 - Sending message [42|1202|20||PONG|1101|25]
+13:12:07 - Sending message [42|1202|22||PING|1101|25]
+13:12:07 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:07 - Servent chord id: 25 se javio na vreme!
+13:12:07 - Sending message [42|1202|21||PONG|1101|25]
+13:12:07 - Got message [25|1101|23||PING|1202|42]
+13:12:08 - Got message [25|1101|24||PING|1202|42]
+13:12:08 - Sending message [42|1202|23||PING|1101|25]
+13:12:08 - Sending message [42|1202|24||PONG|1101|25]
+13:12:08 - Got message [25|1101|27||PING|1202|42]
+13:12:08 - Got message [25|1101|26||PING|1202|42]
+13:12:08 - Got message [25|1101|25||PONG|1202|42]
+13:12:08 - Sending message [42|1202|26||PING|1101|25]
+13:12:08 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:08 - Servent chord id: 25 se javio na vreme!
+13:12:08 - Sending message [42|1202|28||PONG|1101|25]
+13:12:08 - Sending message [42|1202|25||PING|1101|25]
+13:12:08 - Sending message [42|1202|27||PONG|1101|25]
+13:12:09 - Got message [59|1303|0||NEW_NODE|1202|42]
+13:12:09 - Got message [25|1101|28||PONG|1202|42]
+13:12:09 - Sending message [42|1202|30||PONG|1101|25]
+13:12:09 - Got message [25|1101|30||PING|1202|42]
+13:12:09 - Sending message [42|1202|31||PING|1101|25]
+13:12:09 - Got message [25|1101|32||PONG|1202|42]
+13:12:09 - Sending message [42|1202|29||PONG|1101|25]
+13:12:09 - Got message [25|1101|31||PING|1202|42]
+13:12:09 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:09 - Servent chord id: 25 se javio na vreme!
+13:12:10 - Got message [25|1101|29||PONG|1202|42]
+13:12:10 - Sending message [42|1202|32||PING|1101|25]
+13:12:10 - Sending message [42|1202|34||PONG|1101|25]
+13:12:10 - Got message [25|1101|34||PING|1202|42]
+13:12:10 - Got message [25|1101|35||PING|1202|42]
+13:12:10 - Sending message [59|1303|33||NEW_NODE|1101|25]
+13:12:10 - Got message [25|1101|36||PONG|1202|42]
+13:12:10 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:10 - Servent chord id: 25 se javio na vreme!
+13:12:10 - Sending message [42|1202|35||PONG|1101|25]
+13:12:10 - Got message [25|1101|33||PONG|1202|42]
+13:12:10 - Sending message [42|1202|37||PING|1101|25]
+13:12:11 - Sending message [42|1202|36||PING|1101|25]
+13:12:11 - Sending message [42|1202|39||PONG|1101|25]
+13:12:11 - Sending message [42|1202|38||PONG|1101|25]
+13:12:11 - Got message [25|1101|40||PONG|1202|42]
+13:12:11 - Got message [25|1101|39||PING|1202|42]
+13:12:11 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:11 - Servent chord id: 25 se javio na vreme!
+13:12:11 - Sending message [42|1202|40||PING|1101|25]
+13:12:12 - Sending message [42|1202|41||PING|1101|25]
+13:12:12 - Sending message [42|1202|44||PING|1101|25]
+13:12:12 - Got message [25|1101|41||PONG|1202|42]
+13:12:12 - Sending message [42|1202|42||PONG|1101|25]
+13:12:12 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:12 - Servent chord id: 25 se javio na vreme!
+13:12:12 - Got message [25|1101|44||PONG|1202|42]
+13:12:13 - Sending message [42|1202|43||PING|1101|25]
+13:12:13 - Got message [25|1101|43||PING|1202|42]
+13:12:13 - Got message [25|1101|46||PONG|1202|42]
+13:12:13 - Got message [25|1101|47||PONG|1202|42]
+13:12:13 - Got message [25|1101|49||PING|1202|42]
+13:12:13 - Sending message [42|1202|46||PING|1101|25]
+13:12:13 - Got message [59|1303|45|1101|UPDATE|1202|42]
+13:12:13 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:14 - Sending message [42|1202|45||PING|1101|25]
+13:12:14 - Got message [25|1101|50||PONG|1202|42]
+13:12:14 - Sending message [42|1202|47||PONG|1101|25]
+13:12:14 - Got message [25|1101|53||PONG|1202|42]
+13:12:14 - Sending message [42|1202|51||PING|1303|59]
+13:12:14 - Sending message [42|1202|50||PING|1101|25]
+13:12:14 - Sending message [59|1303|49|1101,1202|UPDATE|1303|59]
+13:12:14 - Got message [25|1101|56||PONG|1202|42]
+13:12:14 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:14 - Sending message [42|1202|48||PONG|1101|25]
+13:12:15 - Got message [59|1303|8||PONG|1202|42]
+13:12:15 - Got message [25|1101|58||PONG|1202|42]
+13:12:15 - Got message [25|1101|55||PING|1202|42]
+13:12:15 - Got message [25|1101|60||PING|1202|42]
+13:12:15 - Got message [59|1303|9||PING|1202|42]
+13:12:15 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:15 - Servent chord id: 59 se javio na vreme!
+13:12:15 - Sending message [42|1202|52||PING|1101|25]
+13:12:16 - Sending message [42|1202|53||PING|1303|59]
+13:12:16 - Sending message [42|1202|54||PONG|1101|25]
+13:12:16 - Sending message [42|1202|57||PING|1101|25]
+13:12:16 - Got message [59|1303|13||PING|1202|42]
+13:12:16 - Sending message [42|1202|58||PING|1303|59]
+13:12:16 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:16 - Servent chord id: 59 se javio na vreme!
+13:12:16 - Got message [25|1101|62||PING|1202|42]
+13:12:16 - Sending message [42|1202|56||PONG|1303|59]
+13:12:16 - Sending message [42|1202|55||PONG|1101|25]
+13:12:17 - Got message [25|1101|64||PONG|1202|42]
+13:12:17 - Got message [59|1303|15||PONG|1202|42]
+13:12:17 - Got message [25|1101|65||PONG|1202|42]
+13:12:17 - Got message [59|1303|17||PING|1202|42]
+13:12:17 - Sending message [42|1202|60||PING|1101|25]
+13:12:17 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:17 - Servent chord id: 59 se javio na vreme!
+13:12:17 - Got message [25|1101|67||PING|1202|42]
+13:12:17 - Sending message [42|1202|62||PONG|1101|25]
+13:12:17 - Got message [59|1303|19||PONG|1202|42]
+13:12:18 - Sending message [42|1202|59||PONG|1303|59]
+13:12:18 - Sending message [42|1202|61||PING|1303|59]
+13:12:18 - Sending message [42|1202|66||PONG|1101|25]
+13:12:18 - Got message [59|1303|21||PING|1202|42]
+13:12:18 - Sending message [42|1202|63||PONG|1303|59]
+13:12:18 - Sending message [42|1202|65||PING|1303|59]
+13:12:18 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:18 - Servent chord id: 59 se javio na vreme!
+13:12:18 - Got message [25|1101|69||PONG|1202|42]
+13:12:18 - Sending message [42|1202|64||PING|1101|25]
+13:12:19 - Got message [25|1101|72||PING|1202|42]
+13:12:19 - Sending message [42|1202|67||PONG|1303|59]
+13:12:19 - Got message [59|1303|23||PONG|1202|42]
+13:12:19 - Got message [25|1101|75||PONG|1202|42]
+13:12:19 - Sending message [42|1202|68||PING|1101|25]
+13:12:19 - Got message [59|1303|26||PING|1202|42]
+13:12:19 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:19 - Servent chord id: 59 se javio na vreme!
+13:12:19 - Got message [59|1303|25||PONG|1202|42]
+13:12:20 - Got message [25|1101|74||PING|1202|42]
+13:12:20 - Got message [25|1101|77||PONG|1202|42]
+13:12:20 - Sending message [42|1202|69||PING|1303|59]
+13:12:20 - Sending message [42|1202|72||PING|1101|25]
+13:12:20 - Sending message [42|1202|70||PONG|1101|25]
+13:12:20 - Sending message [42|1202|73||PING|1303|59]
+13:12:20 - Sending message [42|1202|74||PONG|1101|25]
+13:12:20 - Sending message [42|1202|71||PONG|1303|59]
+13:12:20 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:20 - Servent chord id: 59 se javio na vreme!
+13:12:21 - Got message [59|1303|32||PONG|1202|42]
+13:12:21 - Got message [25|1101|79||PING|1202|42]
+13:12:21 - Got message [59|1303|30||PING|1202|42]
+13:12:21 - Sending message [42|1202|76||PING|1303|59]
+13:12:21 - Got message [25|1101|82||PONG|1202|42]
+13:12:21 - Got message [59|1303|35||PING|1202|42]
+13:12:21 - Got message [59|1303|33||PONG|1202|42]
+13:12:21 - Sending message [42|1202|75||PING|1101|25]
+13:12:21 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:21 - Servent chord id: 59 se javio na vreme!
+13:12:21 - Got message [59|1303|37||PONG|1202|42]
+13:12:22 - Got message [25|1101|84||PING|1202|42]
+13:12:22 - Got message [59|1303|38||PING|1202|42]
+13:12:22 - Got message [12|1404|85|1101|UPDATE|1202|42]
+13:12:22 - Sending message [42|1202|79||PONG|1303|59]
+13:12:22 - Sending message [42|1202|80||PING|1101|25]
+13:12:22 - Sending message [42|1202|77||PONG|1101|25]
+13:12:22 - Sending message [42|1202|78||PONG|1303|59]
+13:12:22 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:22 - Servent chord id: 59 se javio na vreme!
+13:12:22 - Sending message [42|1202|81||PING|1303|59]
+13:12:22 - Got message [25|1101|90||PING|1202|42]
+13:12:23 - Got message [25|1101|88||PONG|1202|42]
+13:12:23 - Got message [25|1101|92||PONG|1202|42]
+13:12:23 - Sending message [42|1202|85||PING|1101|25]
+13:12:23 - Sending message [42|1202|83||PONG|1303|59]
+13:12:23 - Sending message [12|1404|84|1101,1202|UPDATE|1303|59]
+13:12:23 - Sending message [42|1202|82||PONG|1101|25]
+13:12:23 - Sending message [42|1202|86||PING|1303|59]
+13:12:23 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:23 - Servent chord id: 59 se javio na vreme!
+13:12:23 - Got message [59|1303|40||PING|1202|42]
+13:12:24 - Sending message [42|1202|87||PONG|1101|25]
+13:12:24 - Got message [25|1101|95||PING|1202|42]
+13:12:24 - Got message [59|1303|42||PONG|1202|42]
+13:12:24 - Got message [25|1101|98||PONG|1202|42]
+13:12:24 - Got message [59|1303|45||PING|1202|42]
+13:12:24 - Sending message [42|1202|90||PONG|1303|59]
+13:12:24 - Sending message [42|1202|89||PING|1303|59]
+13:12:24 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:24 - Servent chord id: 59 se javio na vreme!
+13:12:24 - Sending message [42|1202|91||PONG|1101|25]
+13:12:24 - Got message [59|1303|44||PONG|1202|42]
+13:12:24 - Sending message [42|1202|88||PING|1101|25]
+13:12:25 - Got message [25|1101|100||PING|1202|42]
+13:12:25 - Sending message [42|1202|92||PONG|1303|59]
+13:12:25 - Got message [25|1101|104||PING|1202|42]
+13:12:25 - Sending message [42|1202|95||PONG|1101|25]
+13:12:25 - Got message [25|1101|105||PONG|1202|42]
+13:12:25 - Sending message [42|1202|93||PING|1101|25]
+13:12:25 - Got message [59|1303|48||PING|1202|42]
+13:12:25 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:25 - Servent chord id: 59 se javio na vreme!
+13:12:26 - Sending message [42|1202|94||PING|1303|59]
+13:12:26 - Got message [59|1303|47||PONG|1202|42]
+13:12:26 - Sending message [42|1202|97||PONG|1303|59]
+13:12:26 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:26 - Servent chord id: 59 se javio na vreme!
+13:12:26 - Sending message [42|1202|98||PING|1101|25]
+13:12:26 - Got message [25|1101|108||PING|1202|42]
+13:12:26 - Got message [25|1101|106||PONG|1202|42]
+13:12:27 - Got message [59|1303|50||PING|1202|42]
+13:12:27 - Sending message [42|1202|96||PONG|1101|25]
+13:12:27 - Got message [59|1303|52||PONG|1202|42]
+13:12:27 - Sending message [42|1202|99||PING|1303|59]
+13:12:27 - Sending message [42|1202|102||PONG|1101|25]
+13:12:27 - Got message [59|1303|53||PING|1202|42]
+13:12:27 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:27 - Servent chord id: 59 se javio na vreme!
+13:12:27 - Got message [25|1101|112||PONG|1202|42]
+13:12:28 - Got message [25|1101|111||PING|1202|42]
+13:12:28 - Sending message [42|1202|101||PING|1303|59]
+13:12:28 - Got message [59|1303|55||PONG|1202|42]
+13:12:28 - Sending message [42|1202|100||PING|1101|25]
+13:12:28 - Sending message [42|1202|105||PING|1101|25]
+13:12:28 - Sending message [42|1202|103||PONG|1303|59]
+13:12:28 - Got message [59|1303|56||PING|1202|42]
+13:12:28 - Sending message [42|1202|104||PONG|1303|59]
+13:12:28 - Got message [25|1101|114||PING|1202|42]
+13:12:28 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:28 - Servent chord id: 59 se javio na vreme!
+13:12:28 - Sending message [42|1202|106||PING|1303|59]
+13:12:29 - Got message [25|1101|116||PONG|1202|42]
+13:12:29 - Got message [59|1303|58||PONG|1202|42]
+13:12:29 - Got message [25|1101|118||PING|1202|42]
+13:12:29 - Got message [25|1101|115||PONG|1202|42]
+13:12:29 - Sending message [42|1202|111||PING|1303|59]
+13:12:29 - Sending message [42|1202|108||PONG|1303|59]
+13:12:29 - Sending message [42|1202|107||PONG|1101|25]
+13:12:29 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:29 - Servent chord id: 59 se javio na vreme!
+13:12:29 - Got message [59|1303|62||PONG|1202|42]
+13:12:29 - Sending message [42|1202|109||PONG|1101|25]
+13:12:30 - Got message [59|1303|63||PONG|1202|42]
+13:12:30 - Sending message [42|1202|110||PING|1101|25]
+13:12:30 - Sending message [42|1202|114||PING|1303|59]
+13:12:30 - Got message [25|1101|120||PING|1202|42]
+13:12:30 - Sending message [42|1202|112||PONG|1101|25]
+13:12:30 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:30 - Servent chord id: 59 se javio na vreme!
+13:12:30 - Got message [25|1101|121||PONG|1202|42]
+13:12:31 - Sending message [42|1202|115||PONG|1101|25]
+13:12:31 - Sending message [42|1202|113||PING|1101|25]
+13:12:31 - Sending message [42|1202|117||PING|1303|59]
+13:12:31 - Got message [59|1303|67||PONG|1202|42]
+13:12:31 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:31 - Servent chord id: 59 se javio na vreme!
+13:12:32 - Got message [59|1303|71||PONG|1202|42]
+13:12:32 - Sending message [42|1202|116||PING|1101|25]
+13:12:32 - Got message [25|1101|123||PING|1202|42]
+13:12:32 - Sending message [42|1202|118||PING|1101|25]
+13:12:32 - Got message [25|1101|124||PONG|1202|42]
+13:12:32 - Sending message [42|1202|119||PING|1303|59]
+13:12:32 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:32 - Servent chord id: 59 se javio na vreme!
+13:12:33 - Got message [25|1101|127||PONG|1202|42]
+13:12:33 - Got message [25|1101|126||PING|1202|42]
+13:12:33 - Sending message [42|1202|120||PONG|1101|25]
+13:12:33 - Got message [25|1101|128||PONG|1202|42]
+13:12:33 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:33 - Servent chord id: 59 se javio na vreme!
+13:12:34 - Sending message [42|1202|122||PING|1303|59]
+13:12:34 - Got message [25|1101|130||PING|1202|42]
+13:12:34 - Got message [59|1303|76||PONG|1202|42]
+13:12:34 - Sending message [42|1202|121||PING|1101|25]
+13:12:34 - Sending message [42|1202|123||PONG|1101|25]
+13:12:34 - Sending message [42|1202|124||PING|1101|25]
+13:12:34 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:34 - Servent chord id: 59 se javio na vreme!
+13:12:35 - Got message [25|1101|132||PING|1202|42]
+13:12:35 - Got message [59|1303|82||PONG|1202|42]
+13:12:35 - Sending message [42|1202|125||PING|1303|59]
+13:12:35 - Sending message [42|1202|126||PONG|1101|25]
+13:12:35 - Sending message [42|1202|128||PING|1303|59]
+13:12:35 - Sending message [42|1202|127||PING|1101|25]
+13:12:35 - Sending message [42|1202|129||PONG|1101|25]
+13:12:35 - Got message [25|1101|134||PONG|1202|42]
+13:12:35 - Got message [25|1101|133||PONG|1202|42]
+13:12:35 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:35 - Servent chord id: 59 se javio na vreme!
+13:12:36 - Got message [59|1303|86||PONG|1202|42]
+13:12:36 - Got message [25|1101|136||PING|1202|42]
+13:12:36 - Got message [59|1303|87||PONG|1202|42]
+13:12:36 - Sending message [42|1202|131||PING|1303|59]
+13:12:36 - Got message [25|1101|137||PONG|1202|42]
+13:12:36 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:36 - Servent chord id: 59 se javio na vreme!
+13:12:36 - Got message [25|1101|139||PING|1202|42]
+13:12:37 - Sending message [42|1202|130||PING|1101|25]
+13:12:37 - Sending message [42|1202|132||PONG|1101|25]
+13:12:37 - Got message [25|1101|141||PING|1202|42]
+13:12:37 - Sending message [42|1202|133||PING|1101|25]
+13:12:37 - Sending message [42|1202|134||PING|1303|59]
+13:12:37 - Got message [59|1303|92||PONG|1202|42]
+13:12:37 - Pausing for 5000 ms
+13:12:37 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:37 - Servent chord id: 59 se javio na vreme!
+13:12:37 - Sending message [42|1202|135||PONG|1101|25]
+13:12:38 - Got message [25|1101|142||PONG|1202|42]
+13:12:38 - Got message [59|1303|95||PONG|1202|42]
+13:12:38 - Sending message [42|1202|137||PING|1101|25]
+13:12:38 - Sending message [42|1202|138||PING|1303|59]
+13:12:38 - Got message [25|1101|144|2:5|PUT|1202|42]
+13:12:38 - Sending message [42|1202|136||PONG|1101|25]
+13:12:38 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:38 - Servent chord id: 59 se javio na vreme!
+13:12:38 - Got message [25|1101|143||PONG|1202|42]
+13:12:39 - Got message [25|1101|147||PONG|1202|42]
+13:12:39 - Got message [25|1101|146||PING|1202|42]
+13:12:39 - Sending message [42|1202|140||PING|1101|25]
+13:12:39 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:39 - Servent chord id: 59 se javio na vreme!
+13:12:39 - Sending message [42|1202|139|2:5|PUT|1303|59]
+13:12:40 - Got message [59|1303|100||PONG|1202|42]
+13:12:40 - Got message [25|1101|149||PING|1202|42]
+13:12:40 - Sending message [42|1202|141||PING|1303|59]
+13:12:40 - Got message [25|1101|150||PONG|1202|42]
+13:12:40 - Sending message [42|1202|143||PING|1101|25]
+13:12:40 - Got message [25|1101|152||PING|1202|42]
+13:12:40 - Sending message [42|1202|142||PONG|1101|25]
+13:12:40 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:40 - Servent chord id: 59 se javio na vreme!
+13:12:41 - Sending message [42|1202|144||PING|1303|59]
+13:12:41 - Got message [59|1303|107||PONG|1202|42]
+13:12:41 - Sending message [42|1202|147||PING|1101|25]
+13:12:41 - Sending message [42|1202|145||PONG|1101|25]
+13:12:41 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:41 - Servent chord id: 59 se javio na vreme!
+13:12:41 - Sending message [42|1202|146||PONG|1101|25]
+13:12:42 - Got message [25|1101|155||PING|1202|42]
+13:12:42 - Sending message [42|1202|148||PING|1303|59]
+13:12:42 - Got message [25|1101|153||PONG|1202|42]
+13:12:42 - Got message [25|1101|156||PONG|1202|42]
+13:12:42 - Got message [59|1303|111||PONG|1202|42]
+13:12:42 - Got message [25|1101|158||PING|1202|42]
+13:12:42 - Sending message [42|1202|151||PONG|1101|25]
+13:12:42 - Sending message [42|1202|150||PING|1303|59]
+13:12:42 - Please wait...
+13:12:42 - Pausing for 5000 ms
+13:12:42 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:42 - Servent chord id: 59 se javio na vreme!
+13:12:43 - Sending message [42|1202|149||PING|1101|25]
+13:12:43 - Sending message [42|1202|152||PONG|1101|25]
+13:12:43 - Got message [59|1303|114||PONG|1202|42]
+13:12:43 - Sending message [42|1202|154||PING|1101|25]
+13:12:43 - Got message [25|1101|161||PONG|1202|42]
+13:12:43 - Got message [25|1101|160||PING|1202|42]
+13:12:43 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:43 - Servent chord id: 59 se javio na vreme!
+13:12:43 - Got message [59|1303|116||PONG|1202|42]
+13:12:44 - Sending message [42|1202|153|2|ASK_GET|1303|59]
+13:12:44 - Sending message [42|1202|155||PING|1303|59]
+13:12:44 - Sending message [42|1202|156||PONG|1101|25]
+13:12:44 - Got message [25|1101|164||PING|1202|42]
+13:12:44 - Sending message [42|1202|157||PING|1101|25]
+13:12:44 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:44 - Servent chord id: 59 se javio na vreme!
+13:12:44 - Got message [25|1101|162||PONG|1202|42]
+13:12:45 - Sending message [42|1202|158||PING|1303|59]
+13:12:45 - Got message [59|1303|124||PONG|1202|42]
+13:12:45 - Got message [25|1101|165||PONG|1202|42]
+13:12:45 - Sending message [42|1202|159||PONG|1101|25]
+13:12:45 - Got message [25|1101|167||PING|1202|42]
+13:12:45 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:45 - Servent chord id: 59 se javio na vreme!
+13:12:46 - Got message [59|1303|128||PONG|1202|42]
+13:12:46 - Sending message [42|1202|160||PING|1101|25]
+13:12:46 - Sending message [42|1202|161||PING|1303|59]
+13:12:46 - Sending message [42|1202|163||PING|1101|25]
+13:12:46 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:46 - Servent chord id: 59 se javio na vreme!
+13:12:47 - Sending message [42|1202|164||PING|1303|59]
+13:12:47 - Sending message [42|1202|162||PONG|1101|25]
+13:12:47 - Got message [25|1101|169||PING|1202|42]
+13:12:47 - Got message [59|1303|132||PONG|1202|42]
+13:12:47 - Got message [25|1101|170||PONG|1202|42]
+13:12:47 - Stopping...
+13:12:47 - Predecessor: [25|localhost|1101]
+13:12:47 - Successors: 
+13:12:47 - Successor 1 is [59|localhost|1303]
+13:12:47 - Successor 2 is [59|localhost|1303]
+13:12:47 - Successor 3 is [59|localhost|1303]
+13:12:47 - Successor 4 is [59|localhost|1303]
+13:12:47 - Successor 5 is [59|localhost|1303]
+13:12:47 - Successor 6 is [12|localhost|1404]
+13:12:47 - Sending message [42|1202|167||PONG|1101|25]
+13:12:47 - USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+13:12:47 - Servent chord id: 59 se javio na vreme!
+13:12:47 - Got message [25|1101|171||PONG|1202|42]
+13:12:48 - Sending message [42|1202|166||PING|1303|59]
+13:12:48 - Sending message [42|1202|165||PING|1101|25]

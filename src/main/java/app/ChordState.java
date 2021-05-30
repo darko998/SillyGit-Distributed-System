@@ -53,6 +53,7 @@ public class ChordState {
 	private Map<Integer, Long> aliveSerents = new ConcurrentHashMap<>();
 	private List<Integer> suspiciousServents = new ArrayList<>();
 	private List<Integer> suspiciousServentsCheckedByAnotherServent = new ArrayList<>();
+	private List<Integer> nodesForDelete = new ArrayList<>();
 	
 	public ChordState() {
 		this.chordLevel = 1;
@@ -307,6 +308,21 @@ public class ChordState {
 		updateSuccessorTable();
 	}
 
+	public void deleteNode(ServentInfo nodeForDelete) {
+
+		ArrayList<ServentInfo> tmpList = new ArrayList<>();
+		for (int i = 0; i < allNodeInfo.size(); i++) {
+			if(allNodeInfo.get(i).getChordId() != nodeForDelete.getChordId()) {
+				tmpList.add(allNodeInfo.get(i));
+			}
+		}
+
+		allNodeInfo.clear();
+		allNodeInfo.addAll(tmpList);
+
+		updateSuccessorTable();
+	}
+
 	/**
 	 * The Chord put operation. Stores locally if key is ours, otherwise sends it on.
 	 */
@@ -353,72 +369,69 @@ public class ChordState {
 		aliveSerents.clear();
 	}
 
-	public void areAllServentsAlive() {
-		ServentInfo myPred = AppConfig.chordState.getPredecessor();
-		ServentInfo mySucc = AppConfig.chordState.getSuccessorTable()[0];
+	public void isAliveServent(ServentInfo serventInfo) {
 
-		//isAliveServent(myPred, false);
-		if(mySucc != null) {
-			AppConfig.timestampedStandardPrint("USAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-			isAliveServent(mySucc, true);
-		}
-	}
-
-	public void isAliveServent(ServentInfo serventInfo, boolean isSuccessor) {
-
-		/*if(!isSuccessor) { // Ako je prethodnik samo mu saljemo poruku (pitamo ga da li je alive)
-			IsAliveAskMessage isAliveAskMessage = new IsAliveAskMessage(AppConfig.myServentInfo.getListenerPort(), serventInfo.getListenerPort());
-			MessageUtil.sendMessage(isAliveAskMessage);
-
-			return;
-		}*/
-
-		// Ukoliko je sledbenik vrsimo proveru koliko dugo se nije javio itd.
 		if(aliveSerents.containsKey(serventInfo.getChordId())) {
 			Long noSignalTime = new Date().getTime() - aliveSerents.get(serventInfo.getChordId());
 
-			if(noSignalTime > 2000 && noSignalTime < 10000) {
+			if (noSignalTime > 2000 && noSignalTime < 10000) { // Servent se nije javio izmedju 2s i 10s
 				suspiciousServents.add(serventInfo.getChordId());
 
 				ServentInfo nextSucc = findNextSuccessor(serventInfo.getChordId());
 
-				if(nextSucc != null) {
+				if(nextSucc != null) { // Saljemo ask poruku njegovom sledbeniku
 					IsAliveAskMessage isAliveAskMessage = new IsAliveAskMessage(AppConfig.myServentInfo.getListenerPort(), nextSucc.getListenerPort(), serventInfo.getChordId());
 					MessageUtil.sendMessage(isAliveAskMessage);
-
-					AppConfig.timestampedStandardPrint("Trazimo potvrdu da je servent chord id: " + serventInfo.getChordId() + " ziv!");
-
 				} else {
-					// Nemamo sledbenika kog mozemo da pitamo da nam potvrdi da serventInfo ne radi vise, pa ga cekiramo da je potvrdjen za brisanje
 					suspiciousServentsCheckedByAnotherServent.add(serventInfo.getChordId());
-
-					AppConfig.timestampedStandardPrint("Servent chord id: " + serventInfo.getChordId() + " je oznacen kao sumnjiv!");
 				}
-			} else if (noSignalTime <= 2000) {
-				// Servent se javio na vreme
+			}
 
+			else if (noSignalTime <= 2000) { // Servent se javio na vreme
 				removeFromSuspicious(serventInfo.getChordId());
+			}
 
-				AppConfig.timestampedStandardPrint("Servent chord id: " + serventInfo.getChordId() + " se javio na vreme!");
-			} else {
-				// remove servent from system
-				AppConfig.timestampedStandardPrint("Servent chord id: " + serventInfo.getChordId() + " treba da se izbaci iz sistema!");
+			else { // Servent se nije javio duze od 10 sekundi
+				if(!nodesForDelete.contains(serventInfo.getChordId()) && suspiciousServentsCheckedByAnotherServent.contains(serventInfo.getChordId())) {
+					AppConfig.timestampedStandardPrint("Brisemo servent ciji je chord id: " + serventInfo.getChordId() + " !");
+
+					nodesForDelete.add(serventInfo.getChordId());
+
+					ServentInfo nextSucc = AppConfig.chordState.findNextSuccessor(serventInfo.getChordId());
+
+					if(nextSucc != null) {
+						DeleteNodeMessage deleteNodeMessage = new DeleteNodeMessage(AppConfig.myServentInfo.getListenerPort(),
+								nextSucc.getListenerPort(), AppConfig.myServentInfo.getListenerPort(), serventInfo.getListenerPort());
+						MessageUtil.sendMessage(deleteNodeMessage);
+					} else {
+						deleteNode(serventInfo);
+					}
+
+				}
 			}
 		}
 	}
 
 	public ServentInfo findNextSuccessor(int firstChordId) {
-		for (int i = 1; i < AppConfig.chordState.getSuccessorTable().length; i++) {
-			if(AppConfig.chordState.getSuccessorTable()[i].getChordId() != firstChordId) {
-				return AppConfig.chordState.getSuccessorTable()[i];
+		for (int i = 0; i < AppConfig.chordState.allNodeInfo.size(); i++) {
+			if (AppConfig.chordState.allNodeInfo.get(i).getChordId() > firstChordId) {
+				return AppConfig.chordState.allNodeInfo.get(i);
 			}
 		}
 
-		return null;
+		return AppConfig.chordState.allNodeInfo.get(0);
 	}
 
 	public Map<Integer, Long> getAliveSerents() {
 		return aliveSerents;
+	}
+
+	public void removeFromDeletedIfExists(int chordId) {
+		for (int i = 0; i < nodesForDelete.size(); i++) {
+			if(nodesForDelete.get(i) == chordId) {
+				nodesForDelete.remove(nodesForDelete.get(i));
+			}
+		}
 	}
 
 	public void removeFromSuspicious(int serventChordId) {

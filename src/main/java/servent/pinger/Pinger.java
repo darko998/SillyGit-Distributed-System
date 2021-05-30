@@ -15,13 +15,8 @@ public class Pinger implements Runnable, Cancellable {
     public void run() {
 
         while(working) {
-            ServentInfo myPred = AppConfig.chordState.getPredecessor();
+            //ServentInfo myPred = AppConfig.chordState.getPredecessor();
             ServentInfo mySucc = AppConfig.chordState.getSuccessorTable()[0];
-
-            if(myPred != null) {
-                PingMessage pingMessageToPred = new PingMessage(AppConfig.myServentInfo.getListenerPort(), myPred.getListenerPort());
-                MessageUtil.sendMessage(pingMessageToPred);
-            }
 
             if(mySucc != null) {
                 PingMessage pingMessageToSucc = new PingMessage(AppConfig.myServentInfo.getListenerPort(), mySucc.getListenerPort());
@@ -34,7 +29,11 @@ public class Pinger implements Runnable, Cancellable {
                 e.printStackTrace();
             }
 
-            AppConfig.chordState.areAllServentsAlive();
+            if(mySucc != null) {
+                AppConfig.chordState.isAliveServent(mySucc);
+            }
+
+            mySucc = null;
         }
 
     }

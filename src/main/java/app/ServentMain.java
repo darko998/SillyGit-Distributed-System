@@ -20,7 +20,7 @@ public class ServentMain {
 		if (args.length != 2) {
 			AppConfig.timestampedErrorPrint("Please provide servent list file and id of this servent.");
 		}
-		
+
 		int serventId = -1;
 		int portNumber = -1;
 		
@@ -63,5 +63,13 @@ public class ServentMain {
 		ServentInitializer serventInitializer = new ServentInitializer();
 		Thread initializerThread = new Thread(serventInitializer);
 		initializerThread.start();
+
+		try {
+			initializerThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		AppConfig.timestampedStandardPrint("My chord id: " + AppConfig.myServentInfo.getChordId());
+
 	}
 }

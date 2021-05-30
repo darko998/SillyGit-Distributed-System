@@ -1,7 +1,11 @@
 package servent.message.util;
 
 import app.AppConfig;
+import app.ServentInfo;
+import servent.message.DeleteNodeMessage;
+import servent.message.IsAliveAskMessage;
 import servent.message.Message;
+import servent.message.MessageType;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -34,7 +38,9 @@ public class DelayedMessageSender implements Runnable {
 		}
 		
 		if (MessageUtil.MESSAGE_UTIL_PRINTING) {
-			AppConfig.timestampedStandardPrint("Sending message " + messageToSend);
+			if(messageToSend.getMessageType() != MessageType.PING && messageToSend.getMessageType() != MessageType.PONG) {
+				AppConfig.timestampedStandardPrint("Sending message " + messageToSend);
+			}
 		}
 		
 		try {
@@ -46,7 +52,33 @@ public class DelayedMessageSender implements Runnable {
 			
 			sendSocket.close();
 		} catch (IOException e) {
-			AppConfig.timestampedErrorPrint("Couldn't send message: " + messageToSend.toString());
+			if(messageToSend.getMessageType() != MessageType.PING && messageToSend.getMessageType() != MessageType.PONG) {
+				AppConfig.timestampedErrorPrint("Couldn't send message: " + messageToSend.toString());
+
+				if(messageToSend.getMessageType() == MessageType.DELETE_NODE) {
+					DeleteNodeMessage deleteNodeMessage = (DeleteNodeMessage)messageToSend;
+					ServentInfo nodeForDelete = new ServentInfo("localhost", deleteNodeMessage.getReceiverPort());
+
+					// Ukoliko je neuspesno slanje poruke za brisanje drugom cvoru, znaci da je drugi cvor oboren (neaktivan), pa brisemo i njega
+					DeleteNodeMessage deleteNodeMessageToMyself = new DeleteNodeMessage(AppConfig.myServentInfo.getListenerPort(),
+							AppConfig.myServentInfo.getListenerPort(), AppConfig.myServentInfo.getListenerPort(), nodeForDelete.getListenerPort());
+					MessageUtil.sendMessage(deleteNodeMessageToMyself);
+
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException interruptedException) {
+						interruptedException.printStackTrace();
+					}
+
+
+					ServentInfo mySucc = AppConfig.chordState.getSuccessorTable()[0];
+
+					if(mySucc != null) {
+						AppConfig.chordState.isAliveServent(mySucc);
+					}
+				}
+
+			}
 		}
 	}
 	

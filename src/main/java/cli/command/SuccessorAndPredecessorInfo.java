@@ -3,7 +3,7 @@ package cli.command;
 import app.AppConfig;
 import app.ServentInfo;
 
-public class SuccessorInfo implements CLICommand {
+public class SuccessorAndPredecessorInfo implements CLICommand {
 
 	@Override
 	public String commandName() {
@@ -13,10 +13,12 @@ public class SuccessorInfo implements CLICommand {
 	@Override
 	public void execute(String args) {
 		ServentInfo[] successorTable = AppConfig.chordState.getSuccessorTable();
-		
+
+		AppConfig.timestampedStandardPrint("Predecessor: " + AppConfig.chordState.getPredecessor());
+
 		int num = 0;
 		for (ServentInfo serventInfo : successorTable) {
-			System.out.println(num + ": " + serventInfo);
+			AppConfig.timestampedStandardPrint("Successor " + num + ": " + serventInfo);
 			num++;
 		}
 

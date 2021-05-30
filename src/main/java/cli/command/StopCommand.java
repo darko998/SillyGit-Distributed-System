@@ -28,6 +28,13 @@ public class StopCommand implements CLICommand {
 		parser.stop();
 		listener.stop();
 		pinger.stop();
+
+		AppConfig.timestampedStandardPrint("Predecessor: " + AppConfig.chordState.getPredecessor());
+
+		AppConfig.timestampedStandardPrint("Successors: ");
+		for (int i = 0; i < AppConfig.chordState.getSuccessorTable().length; i++) {
+			AppConfig.timestampedStandardPrint("Successor " + (i + 1) + " is " + AppConfig.chordState.getSuccessorTable()[i]);
+		}
 	}
 
 }
