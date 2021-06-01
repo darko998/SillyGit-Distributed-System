@@ -17,7 +17,8 @@ public class PingHandler implements MessageHandler {
     @Override
     public void run() {
         if(clientMessage.getMessageType() == MessageType.PING) {
-            PongMessage pongMessage = new PongMessage(clientMessage.getReceiverPort(), clientMessage.getSenderPort(), AppConfig.myServentInfo.getChordId());
+            PongMessage pongMessage = new PongMessage(AppConfig.myServentInfo.getListenerPort(), clientMessage.getSenderPort(),
+                    AppConfig.myServentInfo.getChordId());
             MessageUtil.sendMessage(pongMessage);
         }
     }

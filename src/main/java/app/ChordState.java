@@ -1,5 +1,9 @@
 package app;
 
+import app.document.DocumentRepository;
+import app.document.DocumentTxt;
+import app.document.DocumentTxtIO;
+import com.google.gson.Gson;
 import servent.message.*;
 import servent.message.util.MessageUtil;
 
@@ -39,7 +43,14 @@ public class ChordState {
 	public static int chordHash(int value) {
 		return 61 * value % CHORD_SIZE;
 	}
-	
+	public int chordHashTxtDocument(String path) {
+
+		String fileName = DocumentTxtIO.getFileName(path);
+
+		return Math.abs(fileName.hashCode() % 65);
+	}
+
+
 	private int chordLevel; //log_2(CHORD_SIZE)
 	
 	private ServentInfo[] successorTable;
@@ -84,7 +95,7 @@ public class ChordState {
 	public void init(WelcomeMessage welcomeMsg) {
 		//set a temporary pointer to next node, for sending of update message
 		successorTable[0] = new ServentInfo("localhost", welcomeMsg.getSenderPort());
-		this.valueMap = welcomeMsg.getValues();
+		DocumentTxtIO.write(AppConfig.myServentInfo.getRepositoryPath(), welcomeMsg.getMessageText());
 		
 		//tell bootstrap this node is not a collider
 		try {
@@ -335,6 +346,78 @@ public class ChordState {
 			MessageUtil.sendMessage(pm);
 		}
 	}
+
+	public void addNewTxtDocument(DocumentTxt documentTxt) {
+
+		int documentChordId = chordHashTxtDocument(documentTxt.getPath());
+
+		if(isKeyMine(documentChordId)) {
+			saveTxtDocumentToRepository(documentTxt);
+
+			// Posalji backup dokumente na prvog sledbenika i na prethodnika
+			ServentInfo firstSucc = AppConfig.chordState.getSuccessorTable()[0];
+			ServentInfo pred = AppConfig.chordState.getPredecessor();
+
+			if(firstSucc.getChordId() != AppConfig.myServentInfo.getChordId()) {
+				backupDocument(documentTxt, firstSucc);
+			}
+
+			if(pred.getChordId() != AppConfig.myServentInfo.getChordId()) {
+				backupDocument(documentTxt, pred);
+			}
+		} else {
+			ServentInfo nextNode = getNextNodeForKey(documentChordId);
+
+			NewTxtDocumentMessage newTxtDocumentMessage = new NewTxtDocumentMessage(AppConfig.myServentInfo.getListenerPort(),
+					nextNode.getListenerPort(), new Gson().toJson(documentTxt));
+			MessageUtil.sendMessage(newTxtDocumentMessage);
+		}
+	}
+
+	public void backupDocument(DocumentTxt documentTxt, ServentInfo receiver) {
+		BackupTxtDocumentMessage backupTxtDocumentMessage = new BackupTxtDocumentMessage(AppConfig.myServentInfo.getListenerPort(),
+				receiver.getListenerPort(), new Gson().toJson(documentTxt));
+		MessageUtil.sendMessage(backupTxtDocumentMessage);
+	}
+
+	public void saveTxtDocumentToRepository(DocumentTxt documentTxt) {
+		String currRepositoryString = DocumentTxtIO.read(AppConfig.myServentInfo.getRepositoryPath());
+
+		DocumentRepository documentRepository = null;
+		if(!currRepositoryString.equals("") && currRepositoryString.length() > 0) {
+			try {
+				documentRepository = new Gson().fromJson(currRepositoryString, DocumentRepository.class);
+			} catch (Exception e) {
+				AppConfig.timestampedErrorPrint("Repository content is not valid!");
+			}
+		}
+
+		if(documentRepository != null) {
+			if(!documentExistsInRepository(documentTxt.getPath(), documentRepository)) {
+				documentRepository.getDocuments().add(documentTxt);
+			} else {
+				AppConfig.timestampedErrorPrint("Document: " + documentTxt.getPath() + " already exists in repository!");
+			}
+		} else {
+			documentRepository = new DocumentRepository();
+			documentRepository.getDocuments().add(documentTxt);
+		}
+
+		String documentRepositoryString = new Gson().toJson(documentRepository);
+		DocumentTxtIO.write(AppConfig.myServentInfo.getRepositoryPath(), documentRepositoryString);
+
+		AppConfig.timestampedStandardPrint("Document: " + documentTxt.getPath() + " added!");
+	}
+
+	public boolean documentExistsInRepository(String path, DocumentRepository documentRepository) {
+		for (int i = 0; i < documentRepository.getDocuments().size(); i++) {
+			if(documentRepository.getDocuments().get(i).getPath().equals(path)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 	
 	/**
 	 * The chord get operation. Gets the value locally if key is ours, otherwise asks someone else to give us the value.
@@ -369,6 +452,10 @@ public class ChordState {
 		aliveSerents.clear();
 	}
 
+	public Map<Integer, Long> getAliveSerents() {
+		return aliveSerents;
+	}
+
 	public void isAliveServent(ServentInfo serventInfo) {
 
 		if(aliveSerents.containsKey(serventInfo.getChordId())) {
@@ -376,6 +463,8 @@ public class ChordState {
 
 			if (noSignalTime > 2000 && noSignalTime < 10000) { // Servent se nije javio izmedju 2s i 10s
 				suspiciousServents.add(serventInfo.getChordId());
+
+				//AppConfig.timestampedStandardPrint("Servent ciji je chord id: " + serventInfo.getChordId() + " se javio izmedju 2s i 10s!");
 
 				ServentInfo nextSucc = findNextSuccessor(serventInfo.getChordId());
 
@@ -389,9 +478,12 @@ public class ChordState {
 
 			else if (noSignalTime <= 2000) { // Servent se javio na vreme
 				removeFromSuspicious(serventInfo.getChordId());
+
+				// AppConfig.timestampedStandardPrint("Servent ciji je chord id: " + serventInfo.getChordId() + " se javio na vreme!");
 			}
 
 			else { // Servent se nije javio duze od 10 sekundi
+
 				if(!nodesForDelete.contains(serventInfo.getChordId()) && suspiciousServentsCheckedByAnotherServent.contains(serventInfo.getChordId())) {
 					AppConfig.timestampedStandardPrint("Brisemo servent ciji je chord id: " + serventInfo.getChordId() + " !");
 
@@ -419,12 +511,21 @@ public class ChordState {
 			}
 		}
 
-		return AppConfig.chordState.allNodeInfo.get(0);
+		return getNodeWithSmallestChordId();
 	}
 
-	public Map<Integer, Long> getAliveSerents() {
-		return aliveSerents;
+	public ServentInfo getNodeWithSmallestChordId() {
+		ServentInfo minNode = allNodeInfo.get(0);
+
+		for (int i = 1; i < allNodeInfo.size(); i++) {
+			if(allNodeInfo.get(i).getChordId() < minNode.getChordId()) {
+				minNode = allNodeInfo.get(i);
+			}
+		}
+
+		return minNode;
 	}
+
 
 	public void removeFromDeletedIfExists(int chordId) {
 		for (int i = 0; i < nodesForDelete.size(); i++) {
@@ -451,5 +552,23 @@ public class ChordState {
 
 	public void addSuspiciousCheckedByOtherServent(int serventChordId) {
 		suspiciousServentsCheckedByAnotherServent.add(serventChordId);
+	}
+
+	public DocumentRepository GetRepository() {
+
+		DocumentRepository documentRepository;
+
+		try {
+			String documentRepositoryString = DocumentTxtIO.read(AppConfig.myServentInfo.getRepositoryPath());
+			if(documentRepositoryString.equals("")) {
+				documentRepository = new DocumentRepository();
+			}
+
+			documentRepository = new Gson().fromJson(documentRepositoryString, DocumentRepository.class);
+		} catch (Exception e) {
+			documentRepository = new DocumentRepository();
+		}
+
+		return documentRepository;
 	}
 }

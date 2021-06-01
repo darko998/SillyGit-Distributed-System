@@ -94,6 +94,12 @@ public class SimpleServentListener implements Runnable, Cancellable {
 				case DELETE_NODE:
 					messageHandler = new DeleteNodeHandler(clientMessage);
 					break;
+				case NEW_TXT_DOCUMENT:
+					messageHandler = new NewTxtDocumentHandler(clientMessage);
+					break;
+				case BACKUP_TXT_DOCUMENT:
+					messageHandler = new BackupTxtDocumentHandler(clientMessage);
+					break;
 				case POISON:
 					break;
 				}
