@@ -1,5 +1,6 @@
 package app;
 
+import app.document.DocumentTxtIO;
 import cli.CLIParser;
 import servent.SimpleServentListener;
 import servent.pinger.Pinger;
@@ -17,6 +18,7 @@ public class ServentMain {
 	 * 1 - this servent's id
 	 */
 	public static void main(String[] args) {
+
 		if (args.length != 2) {
 			AppConfig.timestampedErrorPrint("Please provide servent list file and id of this servent.");
 		}
@@ -34,7 +36,8 @@ public class ServentMain {
 		}
 		
 		AppConfig.readConfig(serventListFile, serventId);
-		
+		DocumentTxtIO.write(AppConfig.myServentInfo.getRepositoryPath(), "");
+
 		try {
 			portNumber = AppConfig.myServentInfo.getListenerPort();
 			

@@ -112,6 +112,18 @@ public class SimpleServentListener implements Runnable, Cancellable {
 				case CONFLICT_HAPPENED:
 					messageHandler = new ConflictHappenedHandler(clientMessage);
 					break;
+				case PUSH:
+					messageHandler = new PushHandler(clientMessage);
+					break;
+				case PULL:
+					messageHandler = new PullHandler(clientMessage);
+					break;
+				case PULL_RESULT:
+					messageHandler = new PullResultHandler(clientMessage);
+					break;
+				case REMOVE_TXT_DOCUMENT:
+					messageHandler = new RemoveTxtDocumentHandler(clientMessage);
+					break;
 				case POISON:
 					break;
 				}

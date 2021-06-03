@@ -4,9 +4,12 @@ import app.document.DocumentRepository;
 import app.document.DocumentTxt;
 import app.document.DocumentTxtIO;
 import com.google.gson.Gson;
+import servent.handler.PullResultHandler;
 import servent.message.*;
 import servent.message.util.MessageUtil;
 
+import javax.print.Doc;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -65,7 +68,9 @@ public class ChordState {
 	private List<Integer> suspiciousServents = new ArrayList<>();
 	private List<Integer> suspiciousServentsCheckedByAnotherServent = new ArrayList<>();
 	private List<Integer> nodesForDelete = new ArrayList<>();
-	private HashMap<String, Integer> documentsVersions = new HashMap<>();
+	private HashMap<String, Integer> documentsVersions = new HashMap<>(); // Cuvamo verzije dokumenata sa kojima trenutno radimo
+	private HashMap<Integer, String> conflictOnPortForDocument = new HashMap<>();
+	private DocumentTxt latestDocument;
 
 	private volatile boolean acceptOnlyConflictCommands = false;
 
@@ -362,7 +367,59 @@ public class ChordState {
 		}
 	}
 
-	public void saveNewVersion(DocumentTxt documentTxt) {
+	public void push(DocumentTxt documentTxt, boolean isDocumentMine) {
+		overwriteCurrVersion(documentTxt, isDocumentMine);
+	}
+
+	public void overwriteCurrVersion(DocumentTxt documentTxt, boolean isDocumentMine) {
+		DocumentRepository documentRepository = GetRepository();
+		boolean overwritten = false;
+
+		if(documentRepository != null) {
+
+			DocumentTxt latestVersionDocument = getLatestVersion(documentRepository, documentTxt.getPath());
+
+			for (int i = 0; i < documentRepository.getDocuments().size(); i++) {
+				if(documentRepository.getDocuments().get(i).getPath().equals(documentTxt.getPath()) && documentRepository.getDocuments().get(i).getVersion() == latestVersionDocument.getVersion()) {
+					documentRepository.getDocuments().get(i).setData(documentTxt.getData());
+
+					if(!isDocumentMine) { // Ukoliko nije moj dokument, znaci da update-ujemo kopije, onda moramo i verziju da uskladimo sa dokumentom koji je poslat sa cvora koji je vlasnik dokumenta.
+						documentRepository.getDocuments().get(i).setVersion(documentTxt.getVersion());
+					}
+
+					overwritten = true;
+				}
+			}
+
+			String documentRepositoryString = new Gson().toJson(documentRepository);
+			DocumentTxtIO.write(AppConfig.myServentInfo.getRepositoryPath(), documentRepositoryString);
+
+			AppConfig.timestampedStandardPrint("Document: " + documentTxt.getPath() + " with version " + documentTxt.getVersion() + " is overwritten with local version!");
+
+			// Ako smo ovde pregazili verziju na gitu sa lokalnom, onda treba da obavestimo i sledbenika i prethodnika
+			if(overwritten && isDocumentMine) {
+				// Overwrite-ovanje verzije na gitu sa lokalnom verzijom na prethodniku i sledbeniku
+				ServentInfo firstSucc = AppConfig.chordState.getSuccessorTable()[0];
+				ServentInfo pred = AppConfig.chordState.getPredecessor();
+
+				if(firstSucc.getChordId() != AppConfig.myServentInfo.getChordId()) {
+					notifyAboutOverwrite(documentTxt, firstSucc);
+				}
+
+				if(pred.getChordId() != AppConfig.myServentInfo.getChordId()) {
+					notifyAboutOverwrite(documentTxt, pred);
+				}
+
+			}
+		}
+	}
+
+	public void notifyAboutOverwrite(DocumentTxt documentTxt, ServentInfo receiver) {
+		PushMessage pushMessage = new PushMessage(AppConfig.myServentInfo.getListenerPort(), receiver.getListenerPort(), new Gson().toJson(documentTxt), true);
+		MessageUtil.sendMessage(pushMessage);
+	}
+
+	public synchronized void saveNewVersion(DocumentTxt documentTxt) {
 		DocumentRepository documentRepository = GetRepository();
 
 		if(documentRepository != null) {
@@ -392,7 +449,11 @@ public class ChordState {
 			documentTxt.setVersion(documentTxt.getVersion() + 1);
 
 			if(isConflict(documentTxt)) {
-				ConflictHappenedMessage conflictHappenedMessage = new ConflictHappenedMessage(AppConfig.myServentInfo.getListenerPort(), originalSenderPort, "");
+				ServentInfo receiver = getNextNodeForKey(chordHash(originalSenderPort));
+				DocumentTxt latestVersion = getLatestVersion(GetRepository(), documentTxt.getPath());
+
+				ConflictHappenedMessage conflictHappenedMessage = new ConflictHappenedMessage(AppConfig.myServentInfo.getListenerPort(),
+						receiver.getListenerPort(), new Gson().toJson(documentTxt), originalSenderPort, new Gson().toJson(latestVersion));
 				MessageUtil.sendMessage(conflictHappenedMessage);
 			} else {
 				saveNewVersion(documentTxt);
@@ -433,7 +494,6 @@ public class ChordState {
 
 		SuccessCommitMessage successCommitMessage = new SuccessCommitMessage(AppConfig.myServentInfo.getListenerPort(),
 				originalSenderPort, new Gson().toJson(documentTxt));
-
 		MessageUtil.sendMessage(successCommitMessage);
 	}
 
@@ -461,7 +521,6 @@ public class ChordState {
 		DocumentRepository documentRepository = GetRepository();
 
 		if(documentRepository != null && documentRepository.getDocuments().size() > 0) {
-			AppConfig.timestampedErrorPrint("usaooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
 			DocumentTxt latestVersionDocument = getLatestVersion(documentRepository, documentTxt.getPath());
 
 			if(latestVersionDocument != null && documentTxt.getData().equals(latestVersionDocument.getData())) {
@@ -499,9 +558,137 @@ public class ChordState {
 		return null;
 	}
 
-	public void addNewTxtDocument(DocumentTxt documentTxt) {
+	public boolean isDirectory(String filePath) {
+		filePath = AppConfig.myServentInfo.getWorkingRootPath() + "\\" + filePath;
+
+		File f = new File(filePath);
+
+		if(f.isDirectory()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	// Vraca true ukoliko je nasao datoteke koje pripadaju folderu
+	public boolean handlePullIfPathIsDir(String path, int version, int originalSenderPort) {
+		DocumentRepository documentRepository = GetRepository();
+		List<DocumentTxt> documentsInsideDir = new ArrayList<>();
+
+		HashMap<String, DocumentTxt> documentsToBePulled = new HashMap<>();
+
+		if(documentRepository != null && documentRepository.getDocuments().size() > 0) {
+			for (int i = 0; i < documentRepository.getDocuments().size(); i++) {
+				DocumentTxt tmpDocument = documentRepository.getDocuments().get(i);
+
+				if(tmpDocument.getPath().contains(path + "\\") && !documentsToBePulled.containsKey(tmpDocument.getPath())) {
+
+					if(version != -1) {
+						DocumentTxt specificVersion = findSpecificDocumentVersion(tmpDocument.getPath(), version);
+						documentsToBePulled.put(specificVersion.getPath(), specificVersion);
+					} else {
+						DocumentTxt latestVersion = getLatestVersion(GetRepository(), tmpDocument.getPath());
+						documentsToBePulled.put(latestVersion.getPath(), latestVersion);
+					}
+				}
+			}
+		}
+
+		if(documentsToBePulled.size() > 0) {
+			ServentInfo nextNode = getNextNodeForKey(chordHash(originalSenderPort));
+
+			for (Map.Entry<String, DocumentTxt> document : documentsToBePulled.entrySet()) {
+				PullResultMessage pullResultMessage = new PullResultMessage(AppConfig.myServentInfo.getListenerPort(),
+						nextNode.getListenerPort(), new Gson().toJson(document.getValue()), true, originalSenderPort);
+				MessageUtil.sendMessage(pullResultMessage);
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+	public void pullTxtDocument(String path, int version, int originalSenderPort) {
+		int documentChordId = chordHashTxtDocument(path);
+
+		if(isKeyMine(documentChordId)) {
+
+			if(version == -1) {
+				DocumentTxt latestVersion = getLatestVersion(GetRepository(), path);
+
+				if(latestVersion == null) {
+
+					if(!handlePullIfPathIsDir(path, version, originalSenderPort)) {
+						ServentInfo nextNode = getNextNodeForKey(chordHash(originalSenderPort));
+
+						PullResultMessage pullResultMessage = new PullResultMessage(AppConfig.myServentInfo.getListenerPort(), nextNode.getListenerPort(), "", false, originalSenderPort);
+						MessageUtil.sendMessage(pullResultMessage);
+					}
+
+					return;
+				}
+
+				ServentInfo nextNode = getNextNodeForKey(chordHash(originalSenderPort));
+
+				PullResultMessage pullResultMessage = new PullResultMessage(AppConfig.myServentInfo.getListenerPort(), nextNode.getListenerPort(), new Gson().toJson(latestVersion), true, originalSenderPort);
+				MessageUtil.sendMessage(pullResultMessage);
+			} else {
+				DocumentTxt specificVersion = findSpecificDocumentVersion(path, version);
+
+				if(specificVersion != null) { // Nasli smo trazenu verziju
+
+					ServentInfo nextNode = getNextNodeForKey(chordHash(originalSenderPort));
+
+					PullResultMessage pullResultMessage = new PullResultMessage(AppConfig.myServentInfo.getListenerPort(), nextNode.getListenerPort(), new Gson().toJson(specificVersion), true, originalSenderPort);
+					MessageUtil.sendMessage(pullResultMessage);
+				} else { // Nismo nasli trazenu verziju
+
+					ServentInfo nextNode = getNextNodeForKey(chordHash(originalSenderPort));
+
+					if(!handlePullIfPathIsDir(path, version, originalSenderPort)) {
+						PullResultMessage pullResultMessage = new PullResultMessage(AppConfig.myServentInfo.getListenerPort(), nextNode.getListenerPort(), "", false, originalSenderPort);
+						MessageUtil.sendMessage(pullResultMessage);
+					}
+				}
+			}
+
+		} else {
+			ServentInfo nextNode = getNextNodeForKey(documentChordId);
+
+			PullMessage pullMessage = new PullMessage(AppConfig.myServentInfo.getListenerPort(),
+					nextNode.getListenerPort(), path, version, originalSenderPort);
+			MessageUtil.sendMessage(pullMessage);
+		}
+	}
+
+	public DocumentTxt findSpecificDocumentVersion(String path, int version) {
+		DocumentRepository documentRepository = GetRepository();
+
+		if(documentRepository != null && documentRepository.getDocuments().size() > 0) {
+			for (int i = 0; i < documentRepository.getDocuments().size(); i++) {
+				if(documentRepository.getDocuments().get(i).getPath().equals(path) && documentRepository.getDocuments().get(i).getVersion() == version) {
+					return documentRepository.getDocuments().get(i);
+				}
+			}
+		}
+
+		return null;
+	}
+
+	public String getDirName(String path) {
+		String[] parts = path.split("\\\\");
+
+		return parts[0];
+	}
+
+	public void addNewTxtDocument(DocumentTxt documentTxt, boolean isDir) {
 
 		int documentChordId = chordHashTxtDocument(documentTxt.getPath());
+
+		if(isDir) {
+			documentChordId = chordHashTxtDocument(getDirName(documentTxt.getPath()));
+		}
 
 		if(isKeyMine(documentChordId)) {
 			saveTxtDocumentToRepository(documentTxt);
@@ -521,7 +708,7 @@ public class ChordState {
 			ServentInfo nextNode = getNextNodeForKey(documentChordId);
 
 			NewTxtDocumentMessage newTxtDocumentMessage = new NewTxtDocumentMessage(AppConfig.myServentInfo.getListenerPort(),
-					nextNode.getListenerPort(), new Gson().toJson(documentTxt));
+					nextNode.getListenerPort(), new Gson().toJson(documentTxt), isDir);
 			MessageUtil.sendMessage(newTxtDocumentMessage);
 		}
 	}
@@ -532,7 +719,7 @@ public class ChordState {
 		MessageUtil.sendMessage(backupTxtDocumentMessage);
 	}
 
-	public void saveTxtDocumentToRepository(DocumentTxt documentTxt) {
+	public synchronized void saveTxtDocumentToRepository(DocumentTxt documentTxt) {
 		String currRepositoryString = DocumentTxtIO.read(AppConfig.myServentInfo.getRepositoryPath());
 
 		DocumentRepository documentRepository = null;
@@ -733,6 +920,47 @@ public class ChordState {
 	}
 
 	public int getCurrDocumentVersion(String path) {
+		if(!documentsVersions.containsKey(path)){
+			return -1;
+		}
 		return documentsVersions.get(path);
+	}
+
+	public HashMap<Integer, String> getConflictOnPortForDocument() {
+		return conflictOnPortForDocument;
+	}
+
+	public void setConflictOnPortForDocument(HashMap<Integer, String> conflictOnPortForDocument) {
+		this.conflictOnPortForDocument = conflictOnPortForDocument;
+	}
+
+	public void addConflictInMap(int nodeChordId, String documentTxt) {
+		conflictOnPortForDocument.put(nodeChordId, documentTxt);
+	}
+
+	public void clearConflictsFromMap() {
+		conflictOnPortForDocument.clear();
+	}
+
+	public ServentInfo getConflictDocumentOwner() {
+		int port = conflictOnPortForDocument.entrySet().iterator().next().getKey();
+
+		ServentInfo serventInfo = new ServentInfo("localhost", port);
+
+		return serventInfo;
+	}
+
+	public DocumentTxt getConflictDocument() {
+		String documentTxtString = conflictOnPortForDocument.entrySet().iterator().next().getValue();
+
+		return new Gson().fromJson(documentTxtString, DocumentTxt.class);
+	}
+
+	public DocumentTxt getLatestDocument() {
+		return latestDocument;
+	}
+
+	public void setLatestDocument(DocumentTxt latestDocument) {
+		this.latestDocument = latestDocument;
 	}
 }

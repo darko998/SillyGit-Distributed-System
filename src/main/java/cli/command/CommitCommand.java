@@ -23,7 +23,7 @@ public class CommitCommand implements CLICommand {
     @Override
     public void execute(String args) {
 
-        String filePath = AppConfig.myServentInfo.getWorkingRootPath() + "\\" + args;
+        String filePath = args;
 
         if(checkIfFileExists(filePath)) {
 
@@ -36,14 +36,19 @@ public class CommitCommand implements CLICommand {
                 int folderNameChordId = AppConfig.chordState.chordHashTxtDocument(folderName);
 
                 List<String> fileNames = new ArrayList<>();
-                List<String> tmp = getFileNames(fileNames, Paths.get(filePath));
+                List<String> tmp = getFileNames(fileNames, Paths.get(AppConfig.myServentInfo.getWorkingRootPath() + "\\" + filePath));
 
                 for (int i = 0; i < tmp.size(); i++) {
                     String tmpFilePath = tmp.get(i);
-                    String documentData = DocumentTxtIO.read(tmpFilePath);
-                    DocumentTxt documentTxt = new DocumentTxt(folderNameChordId, tmpFilePath, documentData, AppConfig.chordState.getCurrDocumentVersion(tmpFilePath));
+                    tmpFilePath = tmpFilePath.replace(AppConfig.myServentInfo.getWorkingRootPath() + "\\", "");
 
-                    // -1 nam je znak da saljemo
+                    String documentData = DocumentTxtIO.read(tmpFilePath);
+                    int version = AppConfig.chordState.getCurrDocumentVersion(tmpFilePath);
+                    if(version == -1) {
+                        version = 0;
+                    }
+                    DocumentTxt documentTxt = new DocumentTxt(folderNameChordId, tmpFilePath, documentData, version);
+
                     AppConfig.chordState.commit(documentTxt, AppConfig.myServentInfo.getListenerPort());
                 }
             } else {
@@ -58,6 +63,7 @@ public class CommitCommand implements CLICommand {
     }
 
     private List<String> getFileNames(List<String> fileNames, Path dir) {
+
         try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path path : stream) {
                 if(path.toFile().isDirectory()) {
@@ -74,6 +80,8 @@ public class CommitCommand implements CLICommand {
     }
 
     public boolean checkIfFileExists(String filePath) {
+        filePath = AppConfig.myServentInfo.getWorkingRootPath() + "\\" + filePath;
+
         File f = new File(filePath);
 
         if(f.exists()){
@@ -84,6 +92,8 @@ public class CommitCommand implements CLICommand {
     }
 
     public boolean isDirectory(String filePath) {
+        filePath = AppConfig.myServentInfo.getWorkingRootPath() + "\\" + filePath;
+
         File f = new File(filePath);
 
         if(f.isDirectory()) {

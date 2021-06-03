@@ -1,6 +1,7 @@
 package cli.command;
 
 import app.AppConfig;
+import app.document.DocumentTxtIO;
 
 public class ViewCommand implements CLICommand {
 
@@ -12,8 +13,9 @@ public class ViewCommand implements CLICommand {
     @Override
     public void execute(String args) {
 
-        // todo
+        String createdFileLocation = DocumentTxtIO.createTemporaryFile(AppConfig.chordState.getLatestDocument());
 
-        AppConfig.chordState.acceptAllCommands();
+        AppConfig.timestampedStandardPrint("Radi ispitivanja sadrzaja fajl je kreiran na lokaciji " + createdFileLocation);
+        AppConfig.timestampedStandardPrint("Enter 'view', 'push' or 'pull' to resolve conflict!");
     }
 }

@@ -22,7 +22,7 @@ public class NewTxtDocumentHandler implements MessageHandler {
             NewTxtDocumentMessage newTxtDocumentMessage = (NewTxtDocumentMessage)clientMessage;
             DocumentTxt documentTxt = new Gson().fromJson(newTxtDocumentMessage.getMessageText(), DocumentTxt.class);
 
-            AppConfig.chordState.addNewTxtDocument(documentTxt);
+            AppConfig.chordState.addNewTxtDocument(documentTxt, newTxtDocumentMessage.isDir());
         }
     }
 }

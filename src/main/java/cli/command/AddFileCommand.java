@@ -24,7 +24,7 @@ public class AddFileCommand implements CLICommand {
     @Override
     public void execute(String args) {
 
-        String filePath = AppConfig.myServentInfo.getWorkingRootPath() + "\\" + args;
+        String filePath = args;
 
         if(checkIfFileExists(filePath)) {
 
@@ -37,21 +37,23 @@ public class AddFileCommand implements CLICommand {
                 int folderNameChordId = AppConfig.chordState.chordHashTxtDocument(folderName);
 
                 List<String> fileNames = new ArrayList<>();
-                List<String> tmp = getFileNames(fileNames, Paths.get(filePath));
+                List<String> tmp = getFileNames(fileNames, Paths.get(AppConfig.myServentInfo.getWorkingRootPath() + "\\" + filePath));
 
                 for (int i = 0; i < tmp.size(); i++) {
                     String tmpFilePath = tmp.get(i);
+                    tmpFilePath = tmpFilePath.replace(AppConfig.myServentInfo.getWorkingRootPath() + "\\", "");
+
                     String documentData = DocumentTxtIO.read(tmpFilePath);
                     DocumentTxt documentTxt = new DocumentTxt(folderNameChordId, tmpFilePath, documentData, 0);
 
-                    AppConfig.chordState.addNewTxtDocument(documentTxt);
+                    AppConfig.chordState.addNewTxtDocument(documentTxt, true);
                     AppConfig.chordState.addDocumentVersion(documentTxt);
                 }
             } else {
                 String documentData = DocumentTxtIO.read(filePath);
                 DocumentTxt documentTxt = new DocumentTxt(AppConfig.chordState.chordHashTxtDocument(filePath), filePath, documentData, 0);
 
-                AppConfig.chordState.addNewTxtDocument(documentTxt);
+                AppConfig.chordState.addNewTxtDocument(documentTxt, false);
                 AppConfig.chordState.addDocumentVersion(documentTxt);
             }
         } else {
@@ -76,6 +78,8 @@ public class AddFileCommand implements CLICommand {
     }
 
     public boolean checkIfFileExists(String filePath) {
+        filePath = AppConfig.myServentInfo.getWorkingRootPath() + "\\" + filePath;
+
         File f = new File(filePath);
         
         if(f.exists()){
@@ -86,6 +90,8 @@ public class AddFileCommand implements CLICommand {
     }
 
     public boolean isDirectory(String filePath) {
+        filePath = AppConfig.myServentInfo.getWorkingRootPath() + "\\" + filePath;
+
         File f = new File(filePath);
 
         if(f.isDirectory()) {
