@@ -1,7 +1,6 @@
 package cli.command;
 
 import app.AppConfig;
-import app.ChordState;
 import app.document.DocumentTxt;
 import app.document.DocumentTxtIO;
 
@@ -14,11 +13,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddFileCommand implements CLICommand {
+public class CommitCommand implements CLICommand {
 
     @Override
     public String commandName() {
-        return "add";
+        return "commit";
     }
 
     @Override
@@ -42,17 +41,16 @@ public class AddFileCommand implements CLICommand {
                 for (int i = 0; i < tmp.size(); i++) {
                     String tmpFilePath = tmp.get(i);
                     String documentData = DocumentTxtIO.read(tmpFilePath);
-                    DocumentTxt documentTxt = new DocumentTxt(folderNameChordId, tmpFilePath, documentData, 0);
+                    DocumentTxt documentTxt = new DocumentTxt(folderNameChordId, tmpFilePath, documentData, AppConfig.chordState.getCurrDocumentVersion(tmpFilePath));
 
-                    AppConfig.chordState.addNewTxtDocument(documentTxt);
-                    AppConfig.chordState.addDocumentVersion(documentTxt);
+                    // -1 nam je znak da saljemo
+                    AppConfig.chordState.commit(documentTxt, AppConfig.myServentInfo.getListenerPort());
                 }
             } else {
                 String documentData = DocumentTxtIO.read(filePath);
-                DocumentTxt documentTxt = new DocumentTxt(AppConfig.chordState.chordHashTxtDocument(filePath), filePath, documentData, 0);
+                DocumentTxt documentTxt = new DocumentTxt(AppConfig.chordState.chordHashTxtDocument(filePath), filePath, documentData, AppConfig.chordState.getCurrDocumentVersion(filePath));
 
-                AppConfig.chordState.addNewTxtDocument(documentTxt);
-                AppConfig.chordState.addDocumentVersion(documentTxt);
+                AppConfig.chordState.commit(documentTxt, AppConfig.myServentInfo.getListenerPort());
             }
         } else {
             AppConfig.timestampedErrorPrint("File " + filePath + " don't exists");
@@ -77,11 +75,11 @@ public class AddFileCommand implements CLICommand {
 
     public boolean checkIfFileExists(String filePath) {
         File f = new File(filePath);
-        
+
         if(f.exists()){
             return true;
         }
-        
+
         return false;
     }
 
@@ -93,18 +91,5 @@ public class AddFileCommand implements CLICommand {
         }
 
         return false;
-    }
-    
-    public String readFileAsString(String filePath){
-        String data = "";
-        try {
-            data = new String(Files.readAllBytes(Paths.get(filePath)));
-        } catch (IOException e) {
-            e.printStackTrace();
-            AppConfig.timestampedErrorPrint("Error occurred while reading the file " + filePath + " Error: " + e.getMessage());
-
-        }
-
-        return data;
     }
 }

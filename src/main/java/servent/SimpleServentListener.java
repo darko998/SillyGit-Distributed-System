@@ -100,6 +100,18 @@ public class SimpleServentListener implements Runnable, Cancellable {
 				case BACKUP_TXT_DOCUMENT:
 					messageHandler = new BackupTxtDocumentHandler(clientMessage);
 					break;
+				case COMMIT:
+					messageHandler = new CommitHandler(clientMessage);
+					break;
+				case COMMIT_BACKUP:
+					messageHandler = new CommitBackupHandler(clientMessage);
+					break;
+				case SUCCESS_COMMIT:
+					messageHandler = new SuccessCommitHandler(clientMessage);
+					break;
+				case CONFLICT_HAPPENED:
+					messageHandler = new ConflictHappenedHandler(clientMessage);
+					break;
 				case POISON:
 					break;
 				}

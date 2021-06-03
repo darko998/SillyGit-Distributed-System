@@ -65,7 +65,10 @@ public class ChordState {
 	private List<Integer> suspiciousServents = new ArrayList<>();
 	private List<Integer> suspiciousServentsCheckedByAnotherServent = new ArrayList<>();
 	private List<Integer> nodesForDelete = new ArrayList<>();
-	
+	private HashMap<String, Integer> documentsVersions = new HashMap<>();
+
+	private volatile boolean acceptOnlyConflictCommands = false;
+
 	public ChordState() {
 		this.chordLevel = 1;
 		int tmp = CHORD_SIZE;
@@ -111,6 +114,18 @@ public class ChordState {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void acceptOnlyConflictCommands() {
+		this.acceptOnlyConflictCommands = true;
+	}
+
+	public void acceptAllCommands() {
+		this.acceptOnlyConflictCommands = false;
+	}
+
+	public boolean amIAcceptAllCommands() {
+		return !this.acceptOnlyConflictCommands;
 	}
 	
 	public int getChordLevel() {
@@ -347,6 +362,143 @@ public class ChordState {
 		}
 	}
 
+	public void saveNewVersion(DocumentTxt documentTxt) {
+		DocumentRepository documentRepository = GetRepository();
+
+		if(documentRepository != null) {
+			documentRepository.getDocuments().add(documentTxt);
+		} else {
+			documentRepository = new DocumentRepository();
+			documentRepository.getDocuments().add(documentTxt);
+		}
+
+		String documentRepositoryString = new Gson().toJson(documentRepository);
+		DocumentTxtIO.write(AppConfig.myServentInfo.getRepositoryPath(), documentRepositoryString);
+
+		AppConfig.timestampedStandardPrint("Document: " + documentTxt.getPath() + " with version " + documentTxt.getVersion() + " is committed!");
+	}
+
+	public boolean commit(DocumentTxt documentTxt, int originalSenderPort) {
+		int documentChordId = chordHashTxtDocument(documentTxt.getPath());
+
+		if(isKeyMine(documentChordId)) {
+
+			if(isSameContent(documentTxt)) {
+				AppConfig.timestampedStandardPrint("Content is same! Version is no changed!");
+
+				return false;
+			}
+
+			documentTxt.setVersion(documentTxt.getVersion() + 1);
+
+			if(isConflict(documentTxt)) {
+				ConflictHappenedMessage conflictHappenedMessage = new ConflictHappenedMessage(AppConfig.myServentInfo.getListenerPort(), originalSenderPort, "");
+				MessageUtil.sendMessage(conflictHappenedMessage);
+			} else {
+				saveNewVersion(documentTxt);
+
+				// Bekapovanje nove verzije na prethodniku i sledbeniku
+				ServentInfo firstSucc = AppConfig.chordState.getSuccessorTable()[0];
+				ServentInfo pred = AppConfig.chordState.getPredecessor();
+
+				if(firstSucc.getChordId() != AppConfig.myServentInfo.getChordId()) {
+					backupNewVersion(documentTxt, firstSucc);
+				}
+
+				if(pred.getChordId() != AppConfig.myServentInfo.getChordId()) {
+					backupNewVersion(documentTxt, pred);
+				}
+
+				notifySenderAboutSuccessCommit(documentTxt, originalSenderPort);
+
+				return true;
+			}
+
+		} else {
+			ServentInfo nextNode = getNextNodeForKey(documentChordId);
+
+			CommitMessage commitMessage = new CommitMessage(AppConfig.myServentInfo.getListenerPort(),
+					nextNode.getListenerPort(), new Gson().toJson(documentTxt), originalSenderPort);
+			MessageUtil.sendMessage(commitMessage);
+		}
+
+		return false;
+	}
+
+	public void notifySenderAboutSuccessCommit(DocumentTxt documentTxt, int originalSenderPort) {
+
+		if(originalSenderPort == AppConfig.myServentInfo.getListenerPort()) {
+			addDocumentVersion(documentTxt);
+		}
+
+		SuccessCommitMessage successCommitMessage = new SuccessCommitMessage(AppConfig.myServentInfo.getListenerPort(),
+				originalSenderPort, new Gson().toJson(documentTxt));
+
+		MessageUtil.sendMessage(successCommitMessage);
+	}
+
+	public void backupNewVersion(DocumentTxt documentTxt, ServentInfo receiver) {
+		CommitBackupMessage commitBackupMessage = new CommitBackupMessage(AppConfig.myServentInfo.getListenerPort(),
+				receiver.getListenerPort(), new Gson().toJson(documentTxt));
+		MessageUtil.sendMessage(commitBackupMessage);
+	}
+
+	public boolean isConflict(DocumentTxt documentTxt) {
+		DocumentRepository documentRepository = GetRepository();
+
+		if(documentRepository != null && documentRepository.getDocuments().size() > 0) {
+			DocumentTxt latestVersionDocument = getLatestVersion(documentRepository, documentTxt.getPath());
+
+			if(documentTxt.getVersion() <= latestVersionDocument.getVersion()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean isSameContent(DocumentTxt documentTxt) {
+		DocumentRepository documentRepository = GetRepository();
+
+		if(documentRepository != null && documentRepository.getDocuments().size() > 0) {
+			AppConfig.timestampedErrorPrint("usaooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+			DocumentTxt latestVersionDocument = getLatestVersion(documentRepository, documentTxt.getPath());
+
+			if(latestVersionDocument != null && documentTxt.getData().equals(latestVersionDocument.getData())) {
+				AppConfig.timestampedErrorPrint("222222222222222222222222222222222");
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public DocumentTxt getLatestVersion(DocumentRepository documentRepository, String path) {
+
+		if(documentRepository != null && documentRepository.getDocuments().size() > 0) {
+			DocumentTxt latestVersionDocument = new DocumentTxt(-1, "", "", -1);
+			boolean find = false;
+
+			for (int i = 0; i < documentRepository.getDocuments().size(); i++) {
+				if(documentRepository.getDocuments().get(i).getVersion() > latestVersionDocument.getVersion() &&
+						documentRepository.getDocuments().get(i).getPath().equals(path)) {
+					latestVersionDocument = documentRepository.getDocuments().get(i);
+
+					find = true;
+				}
+			}
+
+			if(!find) {
+				return null;
+			}
+
+			return latestVersionDocument;
+		}
+
+		return null;
+	}
+
 	public void addNewTxtDocument(DocumentTxt documentTxt) {
 
 		int documentChordId = chordHashTxtDocument(documentTxt.getPath());
@@ -570,5 +722,17 @@ public class ChordState {
 		}
 
 		return documentRepository;
+	}
+
+	public void addDocumentVersion(DocumentTxt documentTxt) {
+		documentsVersions.put(documentTxt.getPath(), documentTxt.getVersion());
+	}
+
+	public void removeDocumentVersion(DocumentTxt documentTxt) {
+		documentsVersions.remove(documentTxt.getPath());
+	}
+
+	public int getCurrDocumentVersion(String path) {
+		return documentsVersions.get(path);
 	}
 }

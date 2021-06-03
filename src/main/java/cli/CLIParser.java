@@ -31,12 +31,14 @@ import java.util.Scanner;
 public class CLIParser implements Runnable, Cancellable {
 
 	private volatile boolean working = true;
-	
+
 	private final List<CLICommand> commandList;
+	private final List<CLICommand> conflictCommandList;
 	
 	public CLIParser(SimpleServentListener listener, Pinger pinger) {
 		this.commandList = new ArrayList<>();
-		
+		this.conflictCommandList = new ArrayList<>();
+
 		commandList.add(new InfoCommand());
 		commandList.add(new PauseCommand());
 		commandList.add(new SuccessorAndPredecessorInfo());
@@ -44,6 +46,15 @@ public class CLIParser implements Runnable, Cancellable {
 		commandList.add(new DHTPutCommand());
 		commandList.add(new StopCommand(this, listener, pinger));
 		commandList.add(new AddFileCommand());
+		commandList.add(new CommitCommand());
+		commandList.add(new PushCommand());
+		commandList.add(new PullCommand());
+		commandList.add(new ViewCommand());
+
+		conflictCommandList.add(new PushCommand());
+		conflictCommandList.add(new PullCommand());
+		conflictCommandList.add(new ViewCommand());
+
 	}
 	
 	@Override
@@ -51,32 +62,48 @@ public class CLIParser implements Runnable, Cancellable {
 		Scanner sc = new Scanner(System.in);
 		
 		while (working) {
+
 			String commandLine = sc.nextLine();
-			
+
 			int spacePos = commandLine.indexOf(" ");
-			
+
 			String commandName = null;
 			String commandArgs = null;
 			if (spacePos != -1) {
 				commandName = commandLine.substring(0, spacePos);
-				commandArgs = commandLine.substring(spacePos+1, commandLine.length());
+				commandArgs = commandLine.substring(spacePos + 1, commandLine.length());
 			} else {
 				commandName = commandLine;
 			}
-			
+
 			boolean found = false;
-			
-			for (CLICommand cliCommand : commandList) {
-				if (cliCommand.commandName().equals(commandName)) {
-					cliCommand.execute(commandArgs);
-					found = true;
-					break;
+
+			if(AppConfig.chordState.amIAcceptAllCommands()) {
+				for (CLICommand cliCommand : commandList) {
+					if (cliCommand.commandName().equals(commandName)) {
+						cliCommand.execute(commandArgs);
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					AppConfig.timestampedErrorPrint("Unknown command: " + commandName);
+				}
+			} else {
+				for (CLICommand cliCommand : conflictCommandList) {
+					if (cliCommand.commandName().equals(commandName)) {
+						cliCommand.execute(commandArgs);
+						found = true;
+						break;
+					}
+				}
+
+				if (!found) {
+					AppConfig.timestampedErrorPrint("Unknown command: " + commandName + "! Enter 'view', 'push' or 'pull' to resolve conflict!");
 				}
 			}
-			
-			if (!found) {
-				AppConfig.timestampedErrorPrint("Unknown command: " + commandName);
-			}
+
 		}
 		
 		sc.close();
@@ -85,6 +112,6 @@ public class CLIParser implements Runnable, Cancellable {
 	@Override
 	public void stop() {
 		this.working = false;
-		
 	}
+
 }
