@@ -570,6 +570,44 @@ public class ChordState {
 		return false;
 	}
 
+	public void removeDocumentByPath(String path, boolean isToNodeWhichIsNotOwner) {
+		DocumentRepository documentRepository = GetRepository();
+
+		if(documentRepository != null && documentRepository.getDocuments().size() > 0) {
+			for (int i = 0; i < documentRepository.getDocuments().size(); i++) {
+				DocumentTxt tmpDocument = documentRepository.getDocuments().get(i);
+
+				if(tmpDocument.getPath().equals(path) || tmpDocument.getPath().startsWith(path + "\\") || tmpDocument.getPath().contains("\\" + path + "\\")) {
+					documentRepository.getDocuments().remove(tmpDocument);
+					AppConfig.timestampedStandardPrint("Uspesno obrisan dokument sa putanjom: " + tmpDocument.getPath());
+
+					if(!isToNodeWhichIsNotOwner) {
+						// Brisemo dokumente na prvom sledbeniku i na prethodniku
+						ServentInfo firstSucc = AppConfig.chordState.getSuccessorTable()[0];
+						ServentInfo pred = AppConfig.chordState.getPredecessor();
+
+						if (firstSucc.getChordId() != AppConfig.myServentInfo.getChordId()) {
+							redirectRemove(path, firstSucc);
+						}
+
+						if (pred.getChordId() != AppConfig.myServentInfo.getChordId()) {
+							redirectRemove(path, pred);
+						}
+					}
+				}
+			}
+
+			String documentRepositoryString = new Gson().toJson(documentRepository);
+			DocumentTxtIO.write(AppConfig.myServentInfo.getRepositoryPath(), documentRepositoryString);
+		}
+	}
+
+	public void redirectRemove(String path, ServentInfo receiver) {
+		RemoveTxtDocumentMessage removeTxtDocumentMessageTmp = new RemoveTxtDocumentMessage(AppConfig.myServentInfo.getListenerPort(),
+				receiver.getListenerPort(), path, true);
+		MessageUtil.sendMessage(removeTxtDocumentMessageTmp);
+	}
+
 	// Vraca true ukoliko je nasao datoteke koje pripadaju folderu
 	public boolean handlePullIfPathIsDir(String path, int version, int originalSenderPort) {
 		DocumentRepository documentRepository = GetRepository();
@@ -581,7 +619,8 @@ public class ChordState {
 			for (int i = 0; i < documentRepository.getDocuments().size(); i++) {
 				DocumentTxt tmpDocument = documentRepository.getDocuments().get(i);
 
-				if(tmpDocument.getPath().contains(path + "\\") && !documentsToBePulled.containsKey(tmpDocument.getPath())) {
+				if((tmpDocument.getPath().startsWith(path + "\\") || tmpDocument.getPath().contains("\\" + path + "\\"))
+						&& !documentsToBePulled.containsKey(tmpDocument.getPath())) {
 
 					if(version != -1) {
 						DocumentTxt specificVersion = findSpecificDocumentVersion(tmpDocument.getPath(), version);
