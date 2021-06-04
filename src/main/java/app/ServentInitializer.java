@@ -17,7 +17,7 @@ public class ServentInitializer implements Runnable {
 		int retVal = -2;
 		
 		try {
-			Socket bsSocket = new Socket("localhost", bsPort);
+			Socket bsSocket = new Socket(AppConfig.myServentInfo.getIpAddress(), bsPort);
 			
 			PrintWriter bsWriter = new PrintWriter(bsSocket.getOutputStream());
 			bsWriter.write("Hail\n" + AppConfig.myServentInfo.getListenerPort() + "\n");

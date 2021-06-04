@@ -29,7 +29,7 @@ public class NewNodeHandler implements MessageHandler {
 
 			try {
 				int newNodePort = clientMessage.getSenderPort();
-				ServentInfo newNodeInfo = new ServentInfo("localhost", newNodePort);
+				ServentInfo newNodeInfo = new ServentInfo(AppConfig.myServentInfo.getIpAddress(), newNodePort);
 
 				// Ukoliko je postojao cvor za ovim chord id-em i koji je bio obrisan, samo treba izbaciti taj chord id iz liste obrisanih
 				AppConfig.chordState.removeFromDeletedIfExists(newNodeInfo.getChordId());

@@ -49,13 +49,13 @@ public class CommitCommand implements CLICommand {
                     }
                     DocumentTxt documentTxt = new DocumentTxt(folderNameChordId, tmpFilePath, documentData, version);
 
-                    AppConfig.chordState.commit(documentTxt, AppConfig.myServentInfo.getListenerPort());
+                    AppConfig.chordState.commit(documentTxt, AppConfig.myServentInfo.getListenerPort(), true);
                 }
             } else {
                 String documentData = DocumentTxtIO.read(filePath);
                 DocumentTxt documentTxt = new DocumentTxt(AppConfig.chordState.chordHashTxtDocument(filePath), filePath, documentData, AppConfig.chordState.getCurrDocumentVersion(filePath));
 
-                AppConfig.chordState.commit(documentTxt, AppConfig.myServentInfo.getListenerPort());
+                AppConfig.chordState.commit(documentTxt, AppConfig.myServentInfo.getListenerPort(), false);
             }
         } else {
             AppConfig.timestampedErrorPrint("File " + filePath + " don't exists");

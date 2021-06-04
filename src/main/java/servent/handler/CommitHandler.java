@@ -19,7 +19,7 @@ public class CommitHandler implements MessageHandler {
             CommitMessage commitMessage = (CommitMessage)clientMessage;
             DocumentTxt documentTxt = new Gson().fromJson(commitMessage.getMessageText(), DocumentTxt.class);
 
-            AppConfig.chordState.commit(documentTxt, commitMessage.getOriginalSenderPort());
+            AppConfig.chordState.commit(documentTxt, commitMessage.getOriginalSenderPort(), commitMessage.isDir());
         }
     }
 }

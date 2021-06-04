@@ -1,9 +1,11 @@
 package servent.handler;
 
 import app.AppConfig;
+import app.ServentInfo;
 import app.document.DocumentTxt;
 import com.google.gson.Gson;
 import servent.message.*;
+import servent.message.util.MessageUtil;
 
 public class SuccessCommitHandler implements MessageHandler {
 
@@ -19,7 +21,19 @@ public class SuccessCommitHandler implements MessageHandler {
             SuccessCommitMessage successCommitMessage = (SuccessCommitMessage)clientMessage;
             DocumentTxt documentTxt = new Gson().fromJson(successCommitMessage.getMessageText(), DocumentTxt.class);
 
-            AppConfig.chordState.addDocumentVersion(documentTxt);
+            if(successCommitMessage.getOriginalTargetPort() == AppConfig.myServentInfo.getListenerPort()) {
+
+                AppConfig.chordState.addDocumentVersion(documentTxt);
+            } else {
+                ServentInfo nextNode = AppConfig.chordState.getNextNodeForKey(documentTxt.getChordId());
+
+                if(nextNode.getChordId() != AppConfig.myServentInfo.getChordId()) {
+                    SuccessCommitMessage successCommitMessageTmp = new SuccessCommitMessage(AppConfig.myServentInfo.getListenerPort(),
+                            nextNode.getListenerPort(), new Gson().toJson(documentTxt), successCommitMessage.getOriginalTargetPort());
+                    MessageUtil.sendMessage(successCommitMessageTmp);
+                }
+            }
+
         }
     }
 }

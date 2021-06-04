@@ -21,11 +21,11 @@ public class DeleteNodeHandler implements MessageHandler {
             DeleteNodeMessage deleteNodeMessage = (DeleteNodeMessage)clientMessage;
 
             if(deleteNodeMessage.getOriginalSenderPort() == AppConfig.myServentInfo.getListenerPort()) {
-                ServentInfo nodeForDelete = new ServentInfo("localhost", deleteNodeMessage.getDeleteNodePort());
+                ServentInfo nodeForDelete = new ServentInfo(AppConfig.myServentInfo.getIpAddress(), deleteNodeMessage.getDeleteNodePort());
 
                 AppConfig.chordState.deleteNode(nodeForDelete);
             } else {
-                ServentInfo nodeForDelete = new ServentInfo("localhost", deleteNodeMessage.getDeleteNodePort());
+                ServentInfo nodeForDelete = new ServentInfo(AppConfig.myServentInfo.getIpAddress(), deleteNodeMessage.getDeleteNodePort());
 
                 if(nodeForDelete != null) {
                     AppConfig.chordState.deleteNode(nodeForDelete);
@@ -35,7 +35,7 @@ public class DeleteNodeHandler implements MessageHandler {
 
                 // Ovde setujemo novog prethodnika, jer se cvor koji je obrisan nalazio izmedju ovog cvora i cvora koji je poslao ovu poruku.
                 if(deleteNodeMessage.getOriginalSenderPort() == deleteNodeMessage.getSenderPort()) {
-                    AppConfig.chordState.setPredecessor(new ServentInfo("localhost", deleteNodeMessage.getOriginalSenderPort()));
+                    AppConfig.chordState.setPredecessor(new ServentInfo(AppConfig.myServentInfo.getIpAddress(), deleteNodeMessage.getOriginalSenderPort()));
                 }
 
                 ServentInfo nextSucc = AppConfig.chordState.findNextSuccessor(AppConfig.myServentInfo.getChordId());
@@ -57,7 +57,7 @@ public class DeleteNodeHandler implements MessageHandler {
     // jer njegove dokumente ima njegov prethodnik i njegov sledbenik. Ono sto sada treba da uradimo je da prosledimo
     // dokumente nasem prvom sledbeniku, jer smo mi cvor kod koga su originalni dokumenti.
     public void redirectDocumentsWhichBelongedDeletedNode(DeleteNodeMessage deleteNodeMessage) {
-        ServentInfo nodeForDelete = new ServentInfo("localhost", deleteNodeMessage.getDeleteNodePort());
+        ServentInfo nodeForDelete = new ServentInfo(AppConfig.myServentInfo.getIpAddress(), deleteNodeMessage.getDeleteNodePort());
 
         DocumentRepository documentRepository = AppConfig.chordState.GetRepository();
         ServentInfo myFirstSucc = AppConfig.chordState.getSuccessorTable()[0];

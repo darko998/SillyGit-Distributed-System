@@ -1,5 +1,6 @@
 package servent.message;
 
+import app.AppConfig;
 import app.ChordState;
 
 import java.util.Objects;
@@ -54,7 +55,7 @@ public class BasicMessage implements Message {
 	
 	@Override
 	public String getReceiverIpAddress() {
-		return "localhost";
+		return AppConfig.myServentInfo.getIpAddress();
 	}
 	
 	@Override

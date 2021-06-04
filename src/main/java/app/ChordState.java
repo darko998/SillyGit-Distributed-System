@@ -102,12 +102,12 @@ public class ChordState {
 	 */
 	public void init(WelcomeMessage welcomeMsg) {
 		//set a temporary pointer to next node, for sending of update message
-		successorTable[0] = new ServentInfo("localhost", welcomeMsg.getSenderPort());
+		successorTable[0] = new ServentInfo(AppConfig.myServentInfo.getIpAddress(), welcomeMsg.getSenderPort());
 		DocumentTxtIO.write(AppConfig.myServentInfo.getRepositoryPath(), welcomeMsg.getMessageText());
 		
 		//tell bootstrap this node is not a collider
 		try {
-			Socket bsSocket = new Socket("localhost", AppConfig.BOOTSTRAP_PORT);
+			Socket bsSocket = new Socket(AppConfig.myServentInfo.getIpAddress(), AppConfig.BOOTSTRAP_PORT);
 			
 			PrintWriter bsWriter = new PrintWriter(bsSocket.getOutputStream());
 			bsWriter.write("New\n" + AppConfig.myServentInfo.getListenerPort() + "\n");
@@ -435,8 +435,12 @@ public class ChordState {
 		AppConfig.timestampedStandardPrint("Document: " + documentTxt.getPath() + " with version " + documentTxt.getVersion() + " is committed!");
 	}
 
-	public boolean commit(DocumentTxt documentTxt, int originalSenderPort) {
+	public boolean commit(DocumentTxt documentTxt, int originalSenderPort, boolean isDir) {
 		int documentChordId = chordHashTxtDocument(documentTxt.getPath());
+
+		if(isDir) {
+			documentChordId = chordHashTxtDocument(getDirName(documentTxt.getPath()));
+		}
 
 		if(isKeyMine(documentChordId)) {
 
@@ -479,7 +483,7 @@ public class ChordState {
 			ServentInfo nextNode = getNextNodeForKey(documentChordId);
 
 			CommitMessage commitMessage = new CommitMessage(AppConfig.myServentInfo.getListenerPort(),
-					nextNode.getListenerPort(), new Gson().toJson(documentTxt), originalSenderPort);
+					nextNode.getListenerPort(), new Gson().toJson(documentTxt), originalSenderPort, isDir);
 			MessageUtil.sendMessage(commitMessage);
 		}
 
@@ -492,8 +496,10 @@ public class ChordState {
 			addDocumentVersion(documentTxt);
 		}
 
+		ServentInfo nextNode = getNextNodeForKey(AppConfig.chordState.chordHash(originalSenderPort));
+
 		SuccessCommitMessage successCommitMessage = new SuccessCommitMessage(AppConfig.myServentInfo.getListenerPort(),
-				originalSenderPort, new Gson().toJson(documentTxt));
+				nextNode.getListenerPort(), new Gson().toJson(documentTxt), originalSenderPort);
 		MessageUtil.sendMessage(successCommitMessage);
 	}
 
@@ -570,7 +576,7 @@ public class ChordState {
 		return false;
 	}
 
-	public void removeDocumentByPath(String path, boolean isToNodeWhichIsNotOwner) {
+	public synchronized void removeDocumentByPath(String path, boolean isToNodeWhichIsNotOwner) {
 		DocumentRepository documentRepository = GetRepository();
 
 		if(documentRepository != null && documentRepository.getDocuments().size() > 0) {
@@ -984,7 +990,7 @@ public class ChordState {
 	public ServentInfo getConflictDocumentOwner() {
 		int port = conflictOnPortForDocument.entrySet().iterator().next().getKey();
 
-		ServentInfo serventInfo = new ServentInfo("localhost", port);
+		ServentInfo serventInfo = new ServentInfo(AppConfig.myServentInfo.getIpAddress(), port);
 
 		return serventInfo;
 	}

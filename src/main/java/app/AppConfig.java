@@ -103,9 +103,19 @@ public class AppConfig {
 			timestampedErrorPrint("Problem reading chord_size. Must be a number that is a power of 2. Exiting...");
 			System.exit(0);
 		}
-		
+
+		String ipAddressProperty = "servent"+serventId+".address";
+		String ipAddress = "localhost";
+
+		try {
+			ipAddress = properties.getProperty(ipAddressProperty);
+		} catch (NumberFormatException e) {
+			timestampedErrorPrint("Problem reading " + ipAddressProperty + ". Exiting...");
+			System.exit(0);
+		}
+
+
 		String portProperty = "servent"+serventId+".port";
-		
 		int serventPort = -1;
 		
 		try {
@@ -136,7 +146,7 @@ public class AppConfig {
 		}
 
 
-		myServentInfo = new ServentInfo("localhost", serventPort, workingRootPath, repositoryPath);
+		myServentInfo = new ServentInfo(ipAddress, serventPort, workingRootPath, repositoryPath);
 	}
 	
 }

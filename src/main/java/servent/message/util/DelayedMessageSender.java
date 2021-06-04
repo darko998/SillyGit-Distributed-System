@@ -57,7 +57,7 @@ public class DelayedMessageSender implements Runnable {
 
 				if(messageToSend.getMessageType() == MessageType.DELETE_NODE) {
 					DeleteNodeMessage deleteNodeMessage = (DeleteNodeMessage)messageToSend;
-					ServentInfo nodeForDelete = new ServentInfo("localhost", deleteNodeMessage.getReceiverPort());
+					ServentInfo nodeForDelete = new ServentInfo(AppConfig.myServentInfo.getIpAddress(), deleteNodeMessage.getReceiverPort());
 
 					// Ukoliko je neuspesno slanje poruke za brisanje drugom cvoru, znaci da je drugi cvor oboren (neaktivan), pa brisemo i njega
 					DeleteNodeMessage deleteNodeMessageToMyself = new DeleteNodeMessage(AppConfig.myServentInfo.getListenerPort(),

@@ -1,8 +1,11 @@
 package servent.handler;
 
+import app.AppConfig;
+import app.ServentInfo;
 import servent.message.Message;
 import servent.message.MessageType;
 import servent.message.RemoveTxtDocumentMessage;
+import servent.message.util.MessageUtil;
 
 public class RemoveTxtDocumentHandler implements MessageHandler {
 
@@ -16,11 +19,18 @@ public class RemoveTxtDocumentHandler implements MessageHandler {
     public void run() {
         if(clientMessage.getMessageType() == MessageType.REMOVE_TXT_DOCUMENT) {
             RemoveTxtDocumentMessage removeTxtDocumentMessage = (RemoveTxtDocumentMessage)clientMessage;
+            String path = removeTxtDocumentMessage.getMessageText();
+            int documentChordId = AppConfig.chordState.chordHashTxtDocument(path);
 
-            // todo
-            /**
-             * Pored ovoga, ameniti svugde original sender info i za commit proveriti je l folder
-             */
+            if(AppConfig.chordState.isKeyMine(documentChordId) || removeTxtDocumentMessage.isToNodeWhichIsNotOwner()) {
+                AppConfig.chordState.removeDocumentByPath(path, removeTxtDocumentMessage.isToNodeWhichIsNotOwner());
+            } else {
+                ServentInfo nextSucc = AppConfig.chordState.getNextNodeForKey(documentChordId);
+
+                RemoveTxtDocumentMessage removeTxtDocumentMessageTmp = new RemoveTxtDocumentMessage(AppConfig.myServentInfo.getListenerPort(),
+                        nextSucc.getListenerPort(), removeTxtDocumentMessage.getMessageText(), false);
+                MessageUtil.sendMessage(removeTxtDocumentMessageTmp);
+            }
         }
     }
 }

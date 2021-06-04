@@ -23,7 +23,7 @@ public class PullResultHandler implements MessageHandler {
         if(clientMessage.getMessageType() == MessageType.PULL_RESULT) {
             PullResultMessage pullResultMessage = (PullResultMessage)clientMessage;
 
-            ServentInfo targetServent = new ServentInfo("localhost",pullResultMessage.getTargetPort());
+            ServentInfo targetServent = new ServentInfo(AppConfig.myServentInfo.getIpAddress(), pullResultMessage.getTargetPort());
 
             if(targetServent.getChordId() == AppConfig.myServentInfo.getChordId()) {
                 if(pullResultMessage.isFindDocument()) {
